@@ -1,0 +1,40 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+<h1 class="h4 my-4">職員録</h1>
+<div class="my-1">
+    <a href="{% url 'shokuinroku:import' %}" class="btn btn-outline-primary" target="_blank">CSV Import</a>
+</div>
+<div class="my-1">
+    <a href="#" class="btn btn-outline-primary" target="_blank">CSV Export</a>
+</div>
+<table class="table table-striped table-borderless table-sm table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>職員番号</th>
+            <th>所属名</th>
+            <th>職名</th>
+            <th>漢字氏名</th>
+            <th>フリガナ</th>
+            <th>内線番号</th>
+            <th>メールアドレス</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for shokuin in shokuin_list %}
+        <tr>
+            <td>{{ shokuin.shokuin_id }}</td>
+            <td>{{ shokuin.shozokumei }}</td>
+            <td>{{ shokuin.shokumei }}</td>
+            <td>{{ shokuin.kanjishimei }}</td>
+            <td>{{ shokuin.furigana }}</td>
+            <td>{{ shokuin.naisenbangou }}</td>
+            <td>{{ shokuin.mail_address }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}

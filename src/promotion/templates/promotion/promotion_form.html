@@ -1,0 +1,36 @@
+{% extends "base/_base.html" %}
+
+{{ form.media }}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{{ form.certifications.errors }}
+<nav aria-label="breadcrumb" class="mt-1">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'base:front' %}">
+        <i class="fas fa-home"></i>
+        Home
+      </a></li>
+    <li class="breadcrumb-item"><a href="{% url 'promotion:list' %}">
+        <i class="fas fa-money-check-alt"></i>
+        学内経費等支援制度
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">編集</li>
+  </ol>
+</nav>
+
+<h1 class="my-4 h4">学内経費等支援制度 編集</h1>
+<form method="post" id="myform" class="my-4">
+  {% csrf_token %}
+  {% crispy form %}
+</form>
+<div class="row my-4">
+  <div class="col">
+    <button type="submit" class="btn btn-primary" form="myform">
+      <i class="fas fa-check-circle"></i>
+      保存
+    </button>
+  </div>
+</div>
+{% endblock %}

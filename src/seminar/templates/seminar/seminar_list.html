@@ -1,0 +1,85 @@
+{% extends "base/_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mt-1">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'base:front' %}">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <i class="far fa-calendar-alt"></i>
+            催事
+        </li>
+    </ol>
+</nav>
+<div class="row align-items-center my-4">
+    <div class="col">
+        <h1 class="h4">催事 <small class="text-muted">（セミナー、イベントなど）</small></h1>
+    </div>
+    <div class="col text-right">
+        <a href="{% url 'seminar:create' %}" role="button" class="btn btn-outline-secondary">
+            <i class="fas fa-plus-circle"></i>
+            登録
+        </a>
+    </div>
+</div>
+<form method="GET" action="" name="filter_form">
+    <div class="form-group border rounded p-3">
+        <h2 class="h6">絞り込み</h2>
+        <div class="row">
+            <div class="col-md-4">
+                {{ search_form.fiscalyear | as_crispy_field }}
+            </div>
+            <div class="col-md-4">
+                {{ search_form.title | as_crispy_field }}
+            </div>
+            <div class="col-md-4">
+                {{ search_form.venue | as_crispy_field }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+            検索
+        </button>
+    </div>
+</form>
+
+<table class="table table-striped table-borderless table-sm table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>開催年度</th>
+            <th>開催日</th>
+            <th width=30%>催事名</th>
+            <th>会場</th>
+            <th>参加者数</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for seminar in object_list %}
+        <tr>
+            <td>{{ seminar.pk }}</td>
+            <td>{{ seminar.fiscalyear }}</td>
+            <td>{{ seminar.date | date:"Y-m-d" }}</td>
+            <td>{{ seminar.title }}</td>
+            <td>{{ seminar.venue }}</td>
+            <td>{{ seminar.count }}</td>
+            <td>
+                <a class="btn btn-outline-primary btn-sm" href="{% url 'seminar:detail' seminar.pk %}">
+                    <i class="fas fa-angle-double-right"></i>
+                    詳細
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

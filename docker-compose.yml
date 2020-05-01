@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  django:
+    build: ./src
+    container_name: crm_django
+    command: uwsgi --ini /code/crm/django.ini
+    volumes:
+      - ./src:/code
+    expose:
+      - 8001
+    restart: always
+
+  nginx:
+    image: nginx:1.17.9-alpine
+    container_name: crm_nginx
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./nginx/log:/var/log/nginx
+      - ./src/static:/static
+    depends_on:
+      - django
+    restart: always
+
+volumes:
+  django.db.volume:
+    driver: local
+
+networks:
+  default:
+    external:
+      name: shared

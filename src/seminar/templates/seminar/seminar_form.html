@@ -1,0 +1,32 @@
+{% extends "base/_base.html" %}
+
+{{ form.media }}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{{ form.certifications.errors }}
+<nav aria-label="breadcrumb" class="mt-1">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="{% url 'base:front' %}">
+        <i class="fas fa-home"></i>
+        Home
+      </a>
+    </li>
+    <li class="breadcrumb-item"><a href="{% url 'seminar:list' %}">
+        <i class="far fa-calendar-alt"></i>
+        催事
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">編集</li>
+  </ol>
+</nav>
+
+<h1 class="my-4 h5">催事 編集</h1>
+<form method="post" id="myform" class="my-4">
+  {% csrf_token %}
+  {% crispy form %}
+</form>
+<button type="submit" class="btn btn-primary" form="myform">保存</button>
+
+{% endblock %}

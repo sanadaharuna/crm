@@ -1,0 +1,17 @@
+[
+  {
+    "model": "base.fiscalyear",
+    "pk": "2017",
+    "fields": {}
+  },
+  {
+    "model": "base.fiscalyear",
+    "pk": "2018",
+    "fields": {}
+  },
+  {
+    "model": "base.fiscalyear",
+    "pk": "2019",
+    "fields": {}
+  }
+]

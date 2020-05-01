@@ -1,0 +1,99 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="my-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'researchers:list' %}">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+        </li>
+        <li class="breadcrumb-item"><a href="{% url 'promotion:list' %}">
+                <i class="fas fa-money-check-alt"></i>
+                学内経費等支援制度
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">詳細</li>
+    </ol>
+</nav>
+
+<h1 class="h5 mt-4">学内経費等支援制度 詳細</h1>
+<table class="table table-striped">
+    <thead class="thead-light">
+    </thead>
+    <tbody>
+        <tr>
+            <td>施策名</td>
+            <td>{{ promotion.title }}</td>
+        </tr>
+        <tr>
+            <td>年度</td>
+            <td>{{ promotion.fiscalyear }}</td>
+        </tr>
+    </tbody>
+</table>
+<a href="{% url 'promotion:update' promotion.pk %}" role="button" class="btn btn-outline-secondary">
+    <i class="fas fa-pen"></i>
+    編集
+</a>
+<a href="{% url 'promotion:delete' promotion.pk %}" role="button" class="btn btn-outline-warning">
+    <i class="fas fa-trash"></i>
+    削除
+</a>
+
+<hr class="my-4">
+
+<div class="row align-items-center">
+    <div class="col">
+        <h4 class="h5">応募者：{{ count }} 名</h4>
+    </div>
+    <div class="col text-right">
+        <a href="{% url 'promotion:candidate_create' %}?promotion_id={{ promotion.pk }}" role="button"
+            class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-plus-circle"></i>
+            登録
+        </a>
+    </div>
+</div>
+<table class="table table-striped table-borderless table-sm table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>研究者番号</th>
+            <th>氏名</th>
+            <th>所属</th>
+            <th>結果</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for candidate in candidate_list %}
+        <tr>
+            <td>
+                {% if candidate.researcher_id %}
+                <a href="{% url 'researchers:detail' candidate.researcher_id %}">
+                    {{ candidate.researcher_id | stringformat:"08d"}}
+                </a>
+                {% endif %}
+            </td>
+            <td>{{ candidate.name }}</td>
+            <td>{{ candidate.affiliation }}</td>
+            <td>{{ candidate.judgement | yesno:"採択,不採択"}}</td>
+            <td>
+                <a class="btn btn-outline-secondary btn-sm" href="{% url 'promotion:candidate_update' candidate.pk %}">
+                    <i class="fas fa-pen"></i>
+                    編集
+                </a>
+                <a class="btn btn-outline-warning btn-sm" href="{% url 'promotion:candidate_delete' candidate.pk %}">
+                    <i class="fas fa-trash"></i>
+                    削除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+
+<hr>
+
+{% endblock %}

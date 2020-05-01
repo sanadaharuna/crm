@@ -1,0 +1,16 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+<h1 class="my-4 h3">催事参加者データ 削除</h1>
+<p>このデータを削除します。よろしいですか？</p>
+<p>{{ attendance.name }}</p>
+<p>{{ attendance.affiliation }}</p>
+<p>{{ attendance.seminar.title }}</p>
+<p>{{ attendance.seminar.venue }}</p>
+<p>{{ attendance.seminar.date }}</p>
+<form action="" method="post">
+    {% csrf_token %}
+    <a class="btn btn-outline-secondary" href="{% url 'seminar:detail' attendance.seminar_id %}">戻る</a>
+    <input type="submit" class="btn btn-danger" value="削除" />
+</form>
+{% endblock %}
