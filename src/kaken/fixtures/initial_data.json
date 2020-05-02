@@ -1,26 +1,5 @@
 [
   {
-    "model": "kaken.supporttype",
-    "fields": {
-      "code": 0,
-      "name": "一般"
-    }
-  },
-  {
-    "model": "kaken.supporttype",
-    "fields": {
-      "code": 1,
-      "name": "特進"
-    }
-  },
-  {
-    "model": "kaken.supporttype",
-    "fields": {
-      "code": 2,
-      "name": "MaST"
-    }
-  },
-  {
     "model": "kaken.category",
     "fields": {
       "code": 28,
