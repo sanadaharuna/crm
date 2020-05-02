@@ -1,5 +1,5 @@
 SEX_CHOICES = ((0, ""), (1, "男性"), (2, "女性"), (9, "その他"))
-JUDGEMENT_CHOICES = ((1, "採択"), (2, "不採択"), (9, "応募なし"))
+JUDGEMENT_CHOICES = ((0, ""), (1, "採択"), (2, "不採択"), (9, "応募なし"))
 
 AFFILIATION_CHOICES = (
     (1, "人"),

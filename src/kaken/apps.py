@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class KakenConfig(AppConfig):
     name = "kaken"
-    verbose_name = "科研費申請支援"
+    verbose_name = "申請支援｜科研費"

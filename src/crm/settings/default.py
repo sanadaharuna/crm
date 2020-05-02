@@ -17,6 +17,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "adminlte3",
     "base",
     "nayose",
     "shokuinroku",

@@ -25,10 +25,6 @@ class KakenListView(ListView):
                 "shutantou", Value(" / "), "fukutantou", output_field=CharField()
             )
         )
-        # 支援種別
-        if self.request.GET.get("support_type"):
-            support_type = self.request.GET.get("support_type")
-            queryset = queryset.filter(Q(support_type=support_type))
         # 支援年度
         if self.request.GET.get("fiscalyear"):
             fiscalyear = self.request.GET.get("fiscalyear")
@@ -37,10 +33,6 @@ class KakenListView(ListView):
         if self.request.GET.get("tantousha"):
             tantousha = self.request.GET.get("tantousha")
             queryset = queryset.filter(Q(tantousha__icontains=tantousha))
-        # 完了日が空欄
-        if self.request.GET.get("in_progress"):
-            in_progress = bool(self.request.GET.get("in_progress"))
-            queryset = queryset.filter(Q(date_completed__isnull=in_progress))
         return queryset
 
 

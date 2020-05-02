@@ -3,4 +3,5 @@
 access.log
 error.log
 __pycache__
-src/crm/settings/local.py
+migrations
+local.py
