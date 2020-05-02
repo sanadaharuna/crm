@@ -1,13 +1,17 @@
 from .default import *
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
 DEBUG = True
 
-STATIC_URL = "/crm/static/"
-STATIC_ROOT = "/static"
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_URL = "/crm/static/"
+# STATIC_ROOT = "/static"
+
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 
 def show_toolbar(request):
