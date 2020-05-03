@@ -1,6 +1,6 @@
-from django.db import models
+# from django.db import models
 
-from kaken.models import Support
+from base.models import Support
 
 
 class Matching(Support):

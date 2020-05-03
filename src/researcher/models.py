@@ -1,7 +1,7 @@
 from django.db.models import CharField, DateField, IntegerField, Model
 
 from base.common import calculate_age
-from base.consts import SEX_CHOICES
+from nayose.models import SEX_CHOICES
 
 
 class Researcher(Model):
