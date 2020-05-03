@@ -1,8 +1,6 @@
 from datetime import date
 from django.db import models
 
-SEX_CHOICES = ((0, ""), (1, "男性"), (2, "女性"), (9, "その他"))
-
 
 class Nayose(models.Model):
     nayose_id = models.AutoField("名寄せID", primary_key=True)
@@ -16,6 +14,7 @@ class Nayose(models.Model):
     kanashimei_sei = models.CharField("カナ氏名（姓）", max_length=255)
     kanashimei_mei = models.CharField("カナ氏名（名）", max_length=255)
     date_of_birth = models.DateField("生年月日")
+    SEX_CHOICES = ((0, ""), (1, "男性"), (2, "女性"), (9, "その他"))
     sex = models.CharField("性別", choices=SEX_CHOICES, max_length=1)
 
     def __str__(self):

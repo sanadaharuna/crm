@@ -1,7 +1,7 @@
 from django.db.models import CharField, DateField, IntegerField, Model
 
 from base.common import calculate_age
-from nayose.models import SEX_CHOICES
+from nayose.models import Nayose
 
 
 class Researcher(Model):
@@ -11,7 +11,7 @@ class Researcher(Model):
     kanashimei_sei = CharField("カナ氏名・姓", max_length=255)
     kanashimei_mei = CharField("カナ氏名・名", max_length=255)
     date_of_birth = DateField("生年月日")
-    sex = CharField("性別", choices=SEX_CHOICES, max_length=1)
+    sex = CharField("性別", choices=Nayose.SEX_CHOICES, max_length=1)
     department = CharField("部局名", max_length=255)
     title = CharField("職位", max_length=255)
 
