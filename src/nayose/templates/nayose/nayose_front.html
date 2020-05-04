@@ -1,29 +1,23 @@
-{% extends "base/base.html" %}
+{% extends "nayose/base_nayose.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block title %}研究者検索{% endblock title %}
 
 {% block content %}
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card">
-            <div class="card-header card-header-info">
-                <h4 class="card-title">検索</h4>
-            </div>
             <div class="card-body">
-                <form method="GET" action="" name="filter_form">
-                    <div class="form-group px-3">
-                        {{ search_form.kanjishimei }}
-                        <button type="submit" class="btn btn-primary">検索</button>
-                    </div>
-                </form>
+                {% crispy search_form search_form.helper %}
             </div>
         </div>
     </div>
-
-    <div class="col-md-6">
-        <a href="{% url 'nayose:create' %}" role="button" class="btn btn-primary">
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <h4>管理者用</h4>
+        <a href="{% url 'nayose:create' %}" role="button" class="btn btn-outline-primary">
             名寄せデータ 新規登録
         </a>
     </div>

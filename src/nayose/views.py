@@ -1,6 +1,5 @@
 # from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Q
 from django.db.models.functions import Concat
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView
@@ -13,16 +12,13 @@ from .models import Nayose
 class NayoseFrontView(TemplateView):
     template_name = "nayose/nayose_front.html"
 
-
-class NayoseListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.GET:
-            context["search_form"] = NayoseSearchForm(self.request.GET)
-        else:
-            context["search_form"] = NayoseSearchForm()
+        context["search_form"] = NayoseSearchForm()
         return context
 
+
+class NayoseListView(ListView):
     def get_queryset(self):
         if self.request.GET:
             queryset = Nayose.objects.annotate(
@@ -32,12 +28,11 @@ class NayoseListView(ListView):
             # 漢字氏名
             if self.request.GET.get("kanjishimei"):
                 kanjishimei = self.request.GET.get("kanjishimei")
-                queryset = queryset.filter(
-                    Q(kanjishimei__icontains=kanjishimei))
+                queryset = queryset.filter(kanjishimei__icontains=kanjishimei)
             # カナ氏名
             if self.request.GET.get("kanashimei"):
                 kanashimei = self.request.GET.get("kanashimei")
-                queryset = queryset.filter(Q(kanashimei__icontains=kanashimei))
+                queryset = queryset.filter(kanashimei__icontains=kanashimei)
             queryset = queryset.order_by("kanashimei")
         else:
             queryset = Nayose.objects.none()

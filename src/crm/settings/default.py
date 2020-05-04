@@ -131,7 +131,7 @@ STATIC_ROOT = "/static"
 
 
 # crispy-forms
-# CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # allauth
 # AUTHENTICATION_BACKENDS = (

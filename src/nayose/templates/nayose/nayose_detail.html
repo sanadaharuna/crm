@@ -1,0 +1,275 @@
+{% extends "nayose/base_nayose.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">基本情報</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-striped table-sm">
+                            <tr>
+                                <td>漢字氏名</td>
+                                <td>{{ nayose.kanjishimei_sei }} {{ nayose.kanjishimei_mei }}</td>
+                            </tr>
+                            <tr>
+                                <td>カナ氏名</td>
+                                <td>{{ nayose.kanashimei_sei }} {{ nayose.kanashimei_mei }}</td>
+                            </tr>
+                            <tr>
+                                <td>生年月日</td>
+                                <td>{{ nayose.date_of_birth | date:"Y-m-d"}}</td>
+                            </tr>
+                            <tr>
+                                <td>年齢</td>
+                                <td>{{ nayose.age }} 歳</td>
+                            </tr>
+                            <tr>
+                                <td>性別</td>
+                                <td>{{ nayose.get_sex_display }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-striped table-sm">
+                            <tr>
+                                <td>所属</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>職名</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>研究者番号</td>
+                                <td>{{ nayose.erad_id }}</td>
+                            </tr>
+                        </table>
+                        <a href="https://kaken.nii.ac.jp/search/?qm={{ nayose.erad_id }}" class="btn btn-outline-info"
+                            target="_blank">KAKEN検索</a>
+                        <a href="http://researchers.adm.niigata-u.ac.jp/search?m=keyword&l=ja&s=1&kc=1&k={{ nayose.kanjishimei_sei }}{{ nayose.kanjishimei_mei }}&search_type=2"
+                            class="btn btn-outline-info" target="_blank">研究者総覧検索</a>
+                        <a href="https://www.google.co.jp/search?q={{ nayose.kanjishimei_sei }}{{ nayose.kanjishimei_mei }}"
+                            class="btn btn-outline-info" target="_blank">Google検索</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-info card-outline">
+            <div class="card-header">
+                <h3 class="card-title">URAとの接点、学内経費等支援制度等</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>接点種別</th>
+                            <th>年度</th>
+                            <th width=50%>概要</th>
+                            <th>主担当</th>
+                            <th>副担当</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for kaken in kaken_list %}
+                        <tr>
+                            <td>
+                                <i class="fas fa-file-alt"></i>
+                                申請支援｜科研費
+                            </td>
+                            <td>{{ kaken.fiscalyear }}</td>
+                            <td>{{ kaken.support_type.name }} / {{ kaken.category }} / {{ kaken.get_judgement_display }}
+                            </td>
+                            <td>{{ kaken.shutantou }}</td>
+                            <td>{{ kaken.fukutantou }}</td>
+                            <td>
+                                <a class="btn btn-outline-info btn-sm" href="{% url 'kaken:detail' kaken.pk %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    詳細
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% for consignment in consignment_list %}
+                        <tr>
+                            <td>
+                                <i class="far fa-file-alt"></i>
+                                申請支援｜受託研究
+                            </td>
+                            <td>{{ consignment.fiscalyear }}</td>
+                            <td>{{ consignment.call_for_application }} / {{ consignment.funding_agency }} /
+                                {{ consignment.get_judgement_display }}</td>
+                            <td>{{ consignment.shutantou }}</td>
+                            <td>{{ consignment.fukutantou }}</td>
+                            <td>
+                                <a class="btn btn-outline-info btn-sm"
+                                    href="{% url 'consignment:detail' consignment.pk %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    詳細
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% for matching in matching_list %}
+                        <tr>
+                            <td>
+                                <i class="fas fa-user-friends"></i>
+                                研究者マッチング
+                            </td>
+                            <td>{{ matching.fiscalyear }}</td>
+                            <td></td>
+                            <td>{{ matching.shutantou }}</td>
+                            <td>{{ matching.fukutantou }}</td>
+                            <td>
+                                <a class="btn btn-outline-info btn-sm"
+                                    href="{% url 'matching:detail' matching.researcher.pk %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    詳細
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% for attendee in attendee_list %}
+                        <tr>
+                            <td>
+                                <i class="far fa-calendar-alt"></i>
+                                催事参加
+                            </td>
+                            <td>{{ attendee.seminar.fiscalyear }}</td>
+                            <td>{{ attendee.seminar.title }} / {{ attendee.seminar.date | date:"Y-m-d" }}</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>
+                                <a class="btn btn-outline-info btn-sm"
+                                    href="{% url 'seminar:detail' attendee.seminar.pk %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    詳細
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% for lecturer in lecturer_list %}
+                        <tr>
+                            <td>
+                                <i class="far fa-calendar-alt"></i>
+                                催事参加【講師】
+                            </td>
+                            <td>{{ lecturer.seminar.fiscalyear }}</td>
+                            <td>{{ lecturer.seminar.title }} / {{ lecturer.seminar.date | date:"Y-m-d" }}</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>
+                                <a class="btn btn-outline-info btn-sm"
+                                    href="{% url 'seminar:detail' lecturer.seminar.pk %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    詳細
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% for candidate in candidate_list %}
+                        <tr>
+                            <td>
+                                <i class="fas fa-money-check-alt"></i>
+                                学内経費等支援制度
+                            </td>
+                            <td>{{ candidate.promotion.fiscalyear }}</td>
+                            <td>{{ candidate.promotion.title }} / {{ candidate.judgement | yesno:"採択,不採択"}}</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>
+                                <a class="btn btn-outline-info btn-sm"
+                                    href="{% url 'promotion:detail' candidate.promotion.pk %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    詳細
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% for reviewer in reviewer_list %}
+                        <tr>
+                            <td>
+                                <i class="fas fa-book-reader"></i>
+                                科研費審査委員
+                            </td>
+                            <td>{{ reviewer.fiscalyear }}</td>
+                            <td>{{ reviewer.committee }} {{ reviewer.is_awarded | yesno:" / 表彰,"}}</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>
+                                <a class="btn btn-outline-info btn-sm" href="{% url 'reviewer:list' %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    一覧
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<h2 class="h5">科研費 応募採択データ</h2>
+
+<table class="table table-striped table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>応募年度</th>
+            <th>種目</th>
+            <th>採否</th>
+            <th>研究課題名</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>準備中</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<hr>
+<h2 class="h5">受託研究 応募採択データ(e-Rad)</h2>
+<table class="table table-striped table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>応募年度</th>
+            <th>制度名・配分機関名</th>
+            <th>採否</th>
+            <th>研究開発課題名</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>準備中</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,33 +1,7 @@
-{% extends "base/base.html" %}
+{% extends "nayose/base_nayose.html" %}
 {% load static %}
-{% load crispy_forms_tags %}
-
-{% block title %}研究者検索{% endblock title %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header card-header-info">
-                <h4 class="card-title">検索</h4>
-            </div>
-            <div class="card-body">
-                <form method="GET" action="" name="filter_form">
-                    <div class="form-group px-3">
-                        {{ search_form.kanjishimei | as_crispy_field }}
-                        <button type="submit" class="btn btn-primary">検索</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <a href="{% url 'nayose:create' %}" role="button" class="btn btn-primary">
-            名寄せデータ 新規登録
-        </a>
-    </div>
-</div>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -38,7 +12,8 @@
                             <tr>
                                 <th>名寄せID</th>
                                 <th>研究者番号</th>
-                                <th width=20%>漢字氏名</th>
+                                <th width=20%>氏名</th>
+                                <th width=20%>カナ氏名</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -48,8 +23,9 @@
                                 <td>{{ object.pk }}</td>
                                 <td>{{ object.erad_id }}</td>
                                 <td>{{ object.kanjishimei_sei }} {{ object.kanjishimei_mei }}</td>
+                                <td>{{ object.kanashimei_sei }} {{ object.kanashimei_mei }}</td>
                                 <td>
-                                    <a class="btn btn-outline-info btn-sm" href="">
+                                    <a class="btn btn-outline-info btn-sm" href="{% url 'nayose:detail' object.pk %}">
                                         <i class="fas fa-info-circle"></i>
                                         詳細
                                     </a>
