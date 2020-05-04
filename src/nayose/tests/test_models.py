@@ -1,7 +1,7 @@
 from django.test import TestCase
 from nayose.models import Nayose
 # from datetime import date
-from nayose.tests.facroties import NayoseFactory
+from nayose.tests.factories import NayoseFactory
 
 
 class NayoseModelTests(TestCase):
@@ -10,7 +10,7 @@ class NayoseModelTests(TestCase):
         self.assertEqual(0, item_list.count())
 
     def test_1_item(self):
-        item = NayoseFactory()
+        NayoseFactory.create()
         item_list = Nayose.objects.all()
         self.assertEqual(1, item_list.count())
 

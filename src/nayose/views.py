@@ -3,11 +3,15 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.db.models.functions import Concat
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import NayoseForm, NayoseSearchForm
 from .models import Nayose
+
+
+class NayoseFrontView(TemplateView):
+    template_name = "nayose/nayose_front.html"
 
 
 class NayoseListView(ListView):
@@ -38,6 +42,10 @@ class NayoseListView(ListView):
         else:
             queryset = Nayose.objects.none()
         return queryset
+
+
+class NayoseDetailView(DetailView):
+    model = Nayose
 
 
 class NayoseCreateView(SuccessMessageMixin, CreateView):

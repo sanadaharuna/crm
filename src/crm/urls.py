@@ -2,19 +2,18 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
-from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path("", include("base.urls")),
     # path("", RedirectView.as_view(url="https://www.google.com")),
     path("nayose/", include("nayose.urls")),
     path("accounts/", include("allauth.urls")),
-    path("promotion/", include("promotion.urls")),
-    path("seminar/", include("seminar.urls")),
+    # path("promotion/", include("promotion.urls")),
+    # path("seminar/", include("seminar.urls")),
     path("support/kaken/", include("kaken.urls")),
-    path("support/consignment/", include("consignment.urls")),
-    path("support/matching/", include("matching.urls")),
-    path("reviewer/", include("reviewer.urls")),
+    # path("support/consignment/", include("consignment.urls")),
+    # path("support/matching/", include("matching.urls")),
+    # path("reviewer/", include("reviewer.urls")),
     path("admin/", admin.site.urls),
     # path("researcher/", include("researcher.urls")),
     # path("shokuinroku/", include("shokuinroku.urls")),
