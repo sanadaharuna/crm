@@ -1,5 +1,7 @@
 {% extends "nayose/base_nayose.html" %}
 {% load static %}
+{% load humanize %}
+{% block page_actions %}詳細{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -22,20 +24,12 @@
                             </tr>
                             <tr>
                                 <td>生年月日</td>
-                                <td>{{ nayose.date_of_birth | date:"Y-m-d"}}</td>
-                            </tr>
-                            <tr>
-                                <td>年齢</td>
-                                <td>{{ nayose.age }} 歳</td>
+                                <td>{{ nayose.date_of_birth | date:"Y-m-d"}}（{{ nayose.age }} 歳）</td>
                             </tr>
                             <tr>
                                 <td>性別</td>
                                 <td>{{ nayose.get_sex_display }}</td>
                             </tr>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <table class="table table-striped table-sm">
                             <tr>
                                 <td>所属</td>
                                 <td></td>
@@ -44,19 +38,38 @@
                                 <td>職名</td>
                                 <td></td>
                             </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-striped table-sm">
                             <tr>
                                 <td>研究者番号</td>
                                 <td>{{ nayose.erad_id }}</td>
                             </tr>
+                            <tr>
+                                <td>職員番号（常勤）</td>
+                                <td>{{ nayose.shokuin_id }}</td>
+                            </tr>
+                            <tr>
+                                <td>職員番号（非常勤）</td>
+                                <td>{{ nayose.hijoukin_id }}</td>
+                            </tr>
+                            <tr>
+                                <td>名寄せID</td>
+                                <td>{{ nayose.erad_id }}</td>
+                            </tr>
                         </table>
-                        <a href="https://kaken.nii.ac.jp/search/?qm={{ nayose.erad_id }}" class="btn btn-outline-info"
-                            target="_blank">KAKEN検索</a>
-                        <a href="http://researchers.adm.niigata-u.ac.jp/search?m=keyword&l=ja&s=1&kc=1&k={{ nayose.kanjishimei_sei }}{{ nayose.kanjishimei_mei }}&search_type=2"
-                            class="btn btn-outline-info" target="_blank">研究者総覧検索</a>
-                        <a href="https://www.google.co.jp/search?q={{ nayose.kanjishimei_sei }}{{ nayose.kanjishimei_mei }}"
-                            class="btn btn-outline-info" target="_blank">Google検索</a>
                     </div>
                 </div>
+                <div>
+                    <a href="https://kaken.nii.ac.jp/search/?qm={{ nayose.erad_id }}" class="btn btn-outline-info"
+                        target="_blank">KAKEN検索</a>
+                    <a href="http://researchers.adm.niigata-u.ac.jp/search?m=keyword&l=ja&s=1&kc=1&k={{ nayose.kanjishimei_sei }}{{ nayose.kanjishimei_mei }}&search_type=2"
+                        class="btn btn-outline-info" target="_blank">研究者総覧検索</a>
+                    <a href="https://www.google.co.jp/search?q={{ nayose.kanjishimei_sei }}{{ nayose.kanjishimei_mei }}"
+                        class="btn btn-outline-info" target="_blank">Google検索</a>
+                </div>
+
             </div>
         </div>
     </div>
