@@ -1,7 +1,8 @@
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -64,7 +65,6 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             os.path.join(BASE_DIR),
-            "templates",
             os.path.join(BASE_DIR, "templates", "allauth"),
         ],
         "APP_DIRS": True,
@@ -134,31 +134,17 @@ STATIC_ROOT = "/static"
 # crispy-forms
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-# allauth
-# AUTHENTICATION_BACKENDS = (
-#     "django.contrib.auth.backends.ModelBackend",
-#     "allauth.account.auth_backends.AuthenticationBackend",
-# )
-# ACCOUNT_AUTHENTICATION_METHOD = "email"
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_EMAIL_VERIFICATION = "none"
-# ACCOUNT_EMAIL_REQUIRED = True
+# django-allauth
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = True
 
-# SITE_ID = 1
+SITE_ID = 1
 
-# LOGIN_REDIRECT_URL = "base:front"
-# ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
-
-
-#
-# Local Settings
-#
-
-# Django_debug_toolbar
-# def show_toolbar(request):
-#     return True
-
-
-# INSTALLED_APPS += ("debug_toolbar",)
-# MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
-# DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
+LOGIN_REDIRECT_URL = "nayose:front"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"

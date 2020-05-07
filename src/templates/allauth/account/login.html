@@ -27,10 +27,7 @@
 
       <div class="card">
         <div class="card-header">
-          {% load static %}
-          <img alt="Galette CRM Logo" src="{% static 'base/img/hiiragi.png' %}" width="80" height="80"
-            class="d-inline-block align-top mr-2 mx-auto d-block">
-          <h4 class="card-title text-center mb-4 mt-1">Galette CRM ログイン</h4>
+          <h4 class="card-title text-center">Galette CRM ログイン</h4>
         </div>
         <div class="card-body">
           <form class="login" method="POST" action="{% url 'account_login' %}">

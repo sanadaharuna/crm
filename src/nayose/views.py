@@ -1,4 +1,4 @@
-# from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models.functions import Concat
 from django.db.models import Q
@@ -10,7 +10,7 @@ from .forms import NayoseForm, NayoseSearchForm
 from .models import Nayose
 
 
-class NayoseFrontView(TemplateView):
+class NayoseFrontView(LoginRequiredMixin, TemplateView):
     template_name = "nayose/nayose_front.html"
 
     def get_context_data(self, **kwargs):
@@ -20,7 +20,7 @@ class NayoseFrontView(TemplateView):
         return context
 
 
-class NayoseListView(ListView):
+class NayoseListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
@@ -55,25 +55,25 @@ class NayoseListView(ListView):
         return queryset
 
 
-class NayoseDetailView(DetailView):
+class NayoseDetailView(LoginRequiredMixin, DetailView):
     model = Nayose
 
 
-class NayoseCreateView(SuccessMessageMixin, CreateView):
-    model = Nayose
-    form_class = NayoseForm
-    success_message = "保存しました。"
-    success_url = reverse_lazy("nayose:list")
-
-
-class NayoseUpdateView(SuccessMessageMixin, UpdateView):
+class NayoseCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Nayose
     form_class = NayoseForm
     success_message = "保存しました。"
     success_url = reverse_lazy("nayose:list")
 
 
-class NayoseDeleteView(SuccessMessageMixin, DeleteView):
+class NayoseUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Nayose
+    form_class = NayoseForm
+    success_message = "保存しました。"
+    success_url = reverse_lazy("nayose:list")
+
+
+class NayoseDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Nayose
     success_url = reverse_lazy("nayose:list")
     success_message = "削除しました。"

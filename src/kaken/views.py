@@ -1,4 +1,4 @@
-# from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Value, CharField
 from django.db.models.functions import Concat
@@ -10,7 +10,7 @@ from .forms import KakenForm, KakenSearchForm
 from .models import Kaken
 
 
-class KakenListView(ListView):
+class KakenListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.GET:
@@ -36,25 +36,25 @@ class KakenListView(ListView):
         return queryset
 
 
-class KakenDetailView(DetailView):
+class KakenDetailView(LoginRequiredMixin, DetailView):
     model = Kaken
 
 
-class KakenCreateView(SuccessMessageMixin, CreateView):
-    model = Kaken
-    form_class = KakenForm
-    success_message = "保存しました。"
-    success_url = reverse_lazy("kaken:list")
-
-
-class KakenUpdateView(SuccessMessageMixin, UpdateView):
+class KakenCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Kaken
     form_class = KakenForm
     success_message = "保存しました。"
     success_url = reverse_lazy("kaken:list")
 
 
-class KakenDeleteView(SuccessMessageMixin, DeleteView):
+class KakenUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Kaken
+    form_class = KakenForm
+    success_message = "保存しました。"
+    success_url = reverse_lazy("kaken:list")
+
+
+class KakenDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Kaken
     success_url = reverse_lazy("kaken:list")
     success_message = "削除しました。"
