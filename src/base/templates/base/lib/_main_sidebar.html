@@ -22,7 +22,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 {% block nav_links_outer %}
-                <!-- <li class="nav-header">{% block nav_heading %}Main{% endblock %}</li> -->
+                <li class="nav-header">{% block nav_heading %}Main{% endblock %}</li>
 
                 {% block nav_links %}
                 <li class="nav-item my-1">
@@ -35,6 +35,33 @@
                         <i class="fas fa-file-alt"></i>　申請支援｜科研費
                     </a>
                 </li>
+                <li class="nav-header">研究者データ管理</li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-list"></i>　名寄せ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'shokuinroku:list' %}" class="nav-link">
+                        <i class="fas fa-list"></i>　職員録
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-list"></i>　任用データ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-list"></i>　系列ベース
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-list"></i>　e-Rad研究者データ
+                    </a>
+                </li>
+
                 {% endblock nav_links %}
                 {% endblock nav_links_outer %}
             </ul>

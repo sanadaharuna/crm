@@ -9,7 +9,8 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def active_url(context, url):
     try:
-        pattern = '^%s$' % reverse(url)
+        # pattern = '^%s$' % reverse(url)
+        pattern = reverse(url).split("/")[1]
     except NoReverseMatch:
         pattern = url
 

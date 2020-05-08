@@ -18,18 +18,18 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    "adminlte3",
     "base",
     "nayose",
-    # "shokuinroku",
-    # "researcher",
-    # "application",
+    "kaken",
     # "seminar",
     # "promotion",
-    "kaken",
     # "consignment",
     # "matching",
     # "reviewer",
+    "shokuinroku",
+    # "researcher",
+    # "application",
+    "adminlte3",
     "accounts",
     "allauth",
     "allauth.account",
@@ -99,7 +99,8 @@ WSGI_APPLICATION = "crm.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'crm.sqlite3',
+        # 'NAME': 'crm.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'crm.sqlite3'),
     }
 }
 

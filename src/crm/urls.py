@@ -5,18 +5,17 @@ from django.urls import include, path
 
 urlpatterns = [
     path("", include("base.urls")),
-    # path("", RedirectView.as_view(url="https://www.google.com")),
     path("nayose/", include("nayose.urls")),
     path("accounts/", include("allauth.urls")),
     # path("promotion/", include("promotion.urls")),
     # path("seminar/", include("seminar.urls")),
-    path("support/kaken/", include("kaken.urls")),
-    # path("support/consignment/", include("consignment.urls")),
-    # path("support/matching/", include("matching.urls")),
+    path("kaken/", include("kaken.urls")),
+    # path("consignment/", include("consignment.urls")),
+    # path("matching/", include("matching.urls")),
     # path("reviewer/", include("reviewer.urls")),
     path("admin/", admin.site.urls),
+    path("shokuinroku/", include("shokuinroku.urls")),
     # path("researcher/", include("researcher.urls")),
-    # path("shokuinroku/", include("shokuinroku.urls")),
     # path("application/", include("application.urls")),
 ]
 
