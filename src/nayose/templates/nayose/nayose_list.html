@@ -18,8 +18,9 @@
                         <tr>
                             <th>名寄せID</th>
                             <th>研究者番号</th>
-                            <th width=20%>氏名</th>
-                            <th width=20%>カナ氏名</th>
+                            <th>職員番号（常勤）</th>
+                            <th>職員番号（非常勤）</th>
+                            <th>氏名</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -28,8 +29,9 @@
                         <tr>
                             <td>{{ object.pk }}</td>
                             <td>{{ object.erad_id }}</td>
+                            <td>{{ object.shokuin_id }}</td>
+                            <td>{{ object.hijoukin_id }}</td>
                             <td>{{ object.kanjishimei_sei }} {{ object.kanjishimei_mei }}</td>
-                            <td>{{ object.kanashimei_sei }} {{ object.kanashimei_mei }}</td>
                             <td>
                                 <a class="btn btn-outline-info btn-sm" href="{% url 'nayose:detail' object.pk %}">
                                     <i class="fas fa-info-circle"></i>

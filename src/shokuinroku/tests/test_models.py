@@ -1,18 +1,14 @@
 from django.test import TestCase
-from nayose.models import Nayose
-# from datetime import date
-from nayose.tests.factories import NayoseFactory
+from shokuinroku.models import Shokuin
+from shokuinroku.tests.factories import ShokuinFactory
 
 
-class NayoseModelTests(TestCase):
+class ShokuinModelTests(TestCase):
     def test_no_item(self):
-        item_list = Nayose.objects.all()
+        item_list = Shokuin.objects.all()
         self.assertEqual(0, item_list.count())
 
     def test_1_item(self):
-        NayoseFactory.create()
-        item_list = Nayose.objects.all()
+        ShokuinFactory.create()
+        item_list = Shokuin.objects.all()
         self.assertEqual(1, item_list.count())
-
-    # def test_age(self):
-    #     today = date(2020, 5, 4)

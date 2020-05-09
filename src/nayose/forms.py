@@ -23,7 +23,7 @@ class NayoseForm(forms.ModelForm):
 
 
 class NayoseSearchForm(forms.Form):
-    q = forms.CharField(label="キーワード検索", required=False)
+    q = forms.CharField(label="氏名、研究者番号、職員番号", required=False)
 
     def __init__(self, *args, **kwargs):
         super(NayoseSearchForm, self).__init__(*args, **kwargs)
