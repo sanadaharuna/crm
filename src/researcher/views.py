@@ -2,21 +2,54 @@
 # import io
 
 # from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Q
-from django.db.models.functions import Concat
+# from django.db.models import Q
+# from django.db.models.functions import Concat
 # from django.urls import reverse_lazy
 # from django.views.generic import DetailView, FormView, ListView
-from django.views.generic import ListView, DetailView
+# from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, TemplateView
 
-from consignment.models import Consignment
-from kaken.models import Kaken
-from matching.models import Matching
-from promotion.models import Candidate
-from reviewer.models import Reviewer
-from seminar.models import Attendee, Lecturer
+# from consignment.models import Consignment
+# from kaken.models import Kaken
+# from matching.models import Matching
+# from promotion.models import Candidate
+# from reviewer.models import Reviewer
+# from seminar.models import Attendee, Lecturer
 
 # from .forms import ResearcherSearchForm, ResearcherUploadForm
+from .forms import ResearcherSearchForm
 from .models import Researcher
+
+
+class ResearcherFrontView(LoginRequiredMixin, TemplateView):
+    template_name = "researcher/researcher_front.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = ResearcherSearchForm()
+        context["q"] = self.request.GET.get("q")
+        return context
+
+
+class ResearcherListView(LoginRequiredMixin, ListView):
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["q"] = self.request.GET.get("q")
+        return context
+
+    def get_queryset(self):
+        if self.request.GET.get("q"):
+            q = self.request.GET.get("q")
+            # 基準日で検索する
+            queryset = Researcher.objects.filter(as_of=q)
+            # カナ氏名でソートする
+            queryset = queryset.order_by("furigana")
+        else:
+            queryset = Researcher.objects.none()
+        return queryset
 
 
 # class ResearcherListView(ListView):
@@ -46,32 +79,31 @@ from .models import Researcher
 #             queryset = queryset.filter(Q(kanashimei__icontains=kanashimei))
 #         return queryset
 
+# class ResearcherDetailView(DetailView):
+#     model = Researcher
 
-class ResearcherDetailView(DetailView):
-    model = Researcher
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         researcher_id = self.kwargs.get("pk")
+#         context["kaken_list"] = Kaken.objects.filter(researcher=researcher_id)
+#         context["consignment_list"] = Consignment.objects.filter(
+#             researcher=researcher_id
+#         )
+#         context["matching_list"] = Matching.objects.filter(
+#             researcher=researcher_id)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        researcher_id = self.kwargs.get("pk")
-        context["kaken_list"] = Kaken.objects.filter(researcher=researcher_id)
-        context["consignment_list"] = Consignment.objects.filter(
-            researcher=researcher_id
-        )
-        context["matching_list"] = Matching.objects.filter(
-            researcher=researcher_id)
-
-        context["attendee_list"] = Attendee.objects.select_related("seminar").filter(
-            researcher=researcher_id
-        )
-        context["lecturer_list"] = Lecturer.objects.select_related("seminar").filter(
-            researcher=researcher_id
-        )
-        context["candidate_list"] = Candidate.objects.select_related(
-            "promotion"
-        ).filter(researcher=researcher_id)
-        context["reviewer_list"] = Reviewer.objects.filter(
-            nayose_id=researcher_id)
-        return context
+#         context["attendee_list"] = Attendee.objects.select_related("seminar").filter(
+#             researcher=researcher_id
+#         )
+#         context["lecturer_list"] = Lecturer.objects.select_related("seminar").filter(
+#             researcher=researcher_id
+#         )
+#         context["candidate_list"] = Candidate.objects.select_related(
+#             "promotion"
+#         ).filter(researcher=researcher_id)
+#         context["reviewer_list"] = Reviewer.objects.filter(
+#             nayose_id=researcher_id)
+#         return context
 
 
 # class ResearcherImportView(SuccessMessageMixin, FormView):

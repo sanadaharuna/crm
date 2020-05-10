@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     # "matching",
     # "reviewer",
     "shokuinroku",
-    # "researcher",
+    "researcher",
     # "application",
     "adminlte3",
     "accounts",
