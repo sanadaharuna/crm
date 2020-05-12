@@ -8351,3 +8351,256 @@ django.template.exceptions.TemplateDoesNotExist: base/_base.html
 subprocess 62707 exited with code 0
 subprocess 82787 exited with code 0
 subprocess 87364 exited with code 0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   *** Starting uWSGI 2.0.18 (64bit) on [Tue May 12 04:25:27 2020] ***
+compiled with version: 9.2.0 on 10 April 2020 16:25:52
+os: Linux-4.19.76-linuxkit #1 SMP Fri Apr 3 15:53:26 UTC 2020
+nodename: f70a8a129060
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /code
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address :8001 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.2 (default, Mar 24 2020, 02:56:01)  [GCC 9.2.0]
+Python main interpreter initialized at 0x55fe35cb80c0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 145840 bytes (142 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x55fe35cb80c0 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 7, cores: 1)
+Python auto-reloader enabled
+[pid: 7|app: 0|req: 1/1] 192.168.0.3 () {56 vars in 1002 bytes} [Tue May 12 04:26:03 2020] GET /crm/ => generated 0 bytes in 240 msecs (HTTP/1.0 302) 4 headers in 142 bytes (1 switches on core 0)
+[pid: 7|app: 0|req: 2/2] 192.168.0.3 () {56 vars in 1047 bytes} [Tue May 12 04:26:03 2020] GET /crm/accounts/login/ => generated 11943 bytes in 357 msecs (HTTP/1.0 200) 6 headers in 674 bytes (1 switches on core 0)
+[pid: 7|app: 0|req: 3/3] 192.168.0.3 () {64 vars in 1270 bytes} [Tue May 12 04:26:24 2020] POST /crm/accounts/login/ => generated 0 bytes in 319 msecs (HTTP/1.0 302) 8 headers in 664 bytes (1 switches on core 0)
+[pid: 7|app: 0|req: 4/4] 192.168.0.3 () {58 vars in 1348 bytes} [Tue May 12 04:26:25 2020] GET /crm/nayose/ => generated 17613 bytes in 166 msecs (HTTP/1.0 200) 7 headers in 759 bytes (1 switches on core 0)
+subprocess 41 exited with code 0
+[uwsgi-python-reloader] module/file ./crm/settings/default.py has been modified
+...gracefully killing workers...
+Gracefully killing worker 1 (pid: 7)...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /code
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (:8001)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from /code/crm/django.ini
+*** Starting uWSGI 2.0.18 (64bit) on [Tue May 12 05:44:51 2020] ***
+compiled with version: 9.2.0 on 10 April 2020 16:25:52
+os: Linux-4.19.76-linuxkit #1 SMP Fri Apr 3 15:53:26 UTC 2020
+nodename: f70a8a129060
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /code
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited INET address :8001 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.2 (default, Mar 24 2020, 02:56:01)  [GCC 9.2.0]
+Python main interpreter initialized at 0x5635f40cf100
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 145840 bytes (142 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x5635f40cf100 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 549, cores: 1)
+Python auto-reloader enabled
+[uwsgi-python-reloader] module/file ./crm/settings/local.py has been modified
+...gracefully killing workers...
+Gracefully killing worker 1 (pid: 549)...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /code
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (:8001)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from /code/crm/django.ini
+*** Starting uWSGI 2.0.18 (64bit) on [Tue May 12 06:28:58 2020] ***
+compiled with version: 9.2.0 on 10 April 2020 16:25:52
+os: Linux-4.19.76-linuxkit #1 SMP Fri Apr 3 15:53:26 UTC 2020
+nodename: f70a8a129060
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /code
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited INET address :8001 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.2 (default, Mar 24 2020, 02:56:01)  [GCC 9.2.0]
+Python main interpreter initialized at 0x56093ca69100
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 145840 bytes (142 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x56093ca69100 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 19563, cores: 1)
+Python auto-reloader enabled
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /code
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (:8001)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from /code/crm/django.ini
+*** Starting uWSGI 2.0.18 (64bit) on [Tue May 12 06:29:13 2020] ***
+compiled with version: 9.2.0 on 10 April 2020 16:25:52
+os: Linux-4.19.76-linuxkit #1 SMP Fri Apr 3 15:53:26 UTC 2020
+nodename: f70a8a129060
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /code
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited INET address :8001 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.2 (default, Mar 24 2020, 02:56:01)  [GCC 9.2.0]
+Python main interpreter initialized at 0x55ce33ad1100
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 145840 bytes (142 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55ce33ad1100 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 19671, cores: 1)
+Python auto-reloader enabled
+Tue May 12 06:29:21 2020 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+*** Starting uWSGI 2.0.18 (64bit) on [Tue May 12 06:29:27 2020] ***
+compiled with version: 9.2.0 on 10 April 2020 16:25:52
+os: Linux-4.19.76-linuxkit #1 SMP Fri Apr 3 15:53:26 UTC 2020
+nodename: e049d1c01562
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /code
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address :8001 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.2 (default, Mar 24 2020, 02:56:01)  [GCC 9.2.0]
+Python main interpreter initialized at 0x5649af05e100
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 145840 bytes (142 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x5649af05e100 pid: 1 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1)
+spawned uWSGI worker 1 (pid: 7, cores: 1)
+Python auto-reloader enabled
+[pid: 7|app: 0|req: 1/1] 192.168.0.3 () {58 vars in 1134 bytes} [Tue May 12 06:29:37 2020] GET /crm/nayose/ => generated 17432 bytes in 345 msecs (HTTP/1.0 200) 6 headers in 662 bytes (1 switches on core 0)
+[pid: 7|app: 0|req: 2/2] 192.168.0.3 () {56 vars in 1106 bytes} [Tue May 12 06:29:45 2020] GET /crm/nayose/ => generated 17432 bytes in 153 msecs (HTTP/1.0 200) 6 headers in 662 bytes (1 switches on core 0)
+[pid: 7|app: 0|req: 3/3] 192.168.0.3 () {56 vars in 1106 bytes} [Tue May 12 06:29:46 2020] GET /crm/nayose/ => generated 17432 bytes in 151 msecs (HTTP/1.0 200) 6 headers in 674 bytes (1 switches on core 0)
+[pid: 7|app: 0|req: 4/4] 192.168.0.3 () {56 vars in 1106 bytes} [Tue May 12 06:29:46 2020] GET /crm/nayose/ => generated 17432 bytes in 171 msecs (HTTP/1.0 200) 6 headers in 665 bytes (1 switches on core 0)
+[pid: 7|app: 0|req: 5/5] 192.168.0.3 () {56 vars in 1133 bytes} [Tue May 12 06:30:07 2020] GET /crm/accounts/logout/ => generated 16662 bytes in 116 msecs (HTTP/1.0 200) 6 headers in 673 bytes (1 switches on core 0)
+[pid: 7|app: 0|req: 6/6] 192.168.0.3 () {64 vars in 1327 bytes} [Tue May 12 06:30:09 2020] POST /crm/accounts/logout/ => generated 0 bytes in 51 msecs (HTTP/1.0 302) 6 headers in 433 bytes (1 switches on core 0)
+[uwsgi-python-reloader] module/file ./crm/settings/local.py has been modified
+...gracefully killing workers...
+Gracefully killing worker 1 (pid: 7)...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /code
+closing all non-uwsgi socket fds > 2 (max_fd = 1048576)...
+found fd 3 mapped to socket 0 (:8001)
+running /usr/local/bin/uwsgi
+[uWSGI] getting INI configuration from /code/crm/django.ini
+*** Starting uWSGI 2.0.18 (64bit) on [Tue May 12 06:31:38 2020] ***
+compiled with version: 9.2.0 on 10 April 2020 16:25:52
+os: Linux-4.19.76-linuxkit #1 SMP Fri Apr 3 15:53:26 UTC 2020
+nodename: e049d1c01562
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 2
+current working directory: /code
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your memory page size is 4096 bytes
+detected max file descriptor number: 1048576
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited INET address :8001 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.8.2 (default, Mar 24 2020, 02:56:01)  [GCC 9.2.0]
+Python main interpreter initialized at 0x55c193d9c100
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 145840 bytes (142 KB) for 1 cores
+*** Operational MODE: single process ***

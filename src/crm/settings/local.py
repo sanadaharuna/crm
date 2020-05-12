@@ -6,12 +6,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(
 
 DEBUG = True
 
-# STATIC_URL = "/crm/static/"
-# STATIC_ROOT = "/static"
 
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+if os.environ.get("ON_DOCKER"):
+    STATIC_URL = "/crm/static/"
+    STATIC_ROOT = "/static"
+else:
+    STATIC_URL = "/static/"
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 
 def show_toolbar(request):

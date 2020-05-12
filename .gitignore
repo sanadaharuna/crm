@@ -2,7 +2,9 @@
 .venv
 access.log
 error.log
+uwsgi.log
 __pycache__
 migrations
 local.py
 crm.sqlite3
+

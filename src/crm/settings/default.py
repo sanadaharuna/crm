@@ -99,7 +99,6 @@ WSGI_APPLICATION = "crm.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': 'crm.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'crm.sqlite3'),
     }
 }
@@ -150,4 +149,4 @@ ACCOUNT_EMAIL_REQUIRED = True
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = "nayose:front"
-ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/crm/accounts/login/"

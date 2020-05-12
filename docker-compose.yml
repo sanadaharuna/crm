@@ -9,6 +9,8 @@ services:
       - ./src:/code
     expose:
       - 8001
+    env_file:
+      - ./django.env
     restart: always
 
   nginx:
