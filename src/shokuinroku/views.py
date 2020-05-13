@@ -27,7 +27,7 @@ class ShokuinListView(LoginRequiredMixin, ListView):
         if self.request.GET.get("q"):
             q = self.request.GET.get("q")
             # 基準日で検索する
-            queryset = Shokuin.objects.filter(as_of=q)
+            queryset = Shokuin.objects.filter(kijunbi=q)
             # カナ氏名でソートする
             queryset = queryset.order_by("furigana")
         else:

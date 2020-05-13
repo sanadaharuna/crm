@@ -27,8 +27,10 @@
                     <tbody>
                         {% for shokuin in shokuin_list %}
                         <tr>
-                            <td>{{ shokuin.as_of }}</td>
-                            <td><a href="{% url 'nayose:list' %}?shokuin_id={{ shokuin.shokuin_id }}">{{ shokuin.shokuin_id }}</a></td>
+                            <td>{{ shokuin.kijunbi }}</td>
+                            <td><a
+                                    href="{% url 'nayose:list' %}?shokuin_id={{ shokuin.shokuin_id }}">{{ shokuin.shokuin_id }}</a>
+                            </td>
                             <td>{{ shokuin.shozokumei }}</td>
                             <td>{{ shokuin.shokumei }}</td>
                             <td>{{ shokuin.kanjishimei }}</td>

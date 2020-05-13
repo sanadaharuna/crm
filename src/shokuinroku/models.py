@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Shokuin(models.Model):
-    as_of = models.DateField("基準日")
+    kijunbi = models.DateField("基準日")
     shokuin_id = models.CharField("職員番号", max_length=8)
     shozokumei = models.CharField("所属名", max_length=50)
     kakarikouzamei = models.CharField("係講座名", max_length=50, blank=True)

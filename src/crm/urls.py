@@ -14,8 +14,8 @@ urlpatterns = [
     # path("matching/", include("matching.urls")),
     # path("reviewer/", include("reviewer.urls")),
     path("admin/", admin.site.urls),
-    path("shokuinroku/", include("shokuinroku.urls")),
-    path("researcher/", include("researcher.urls")),
+    # path("shokuinroku/", include("shokuinroku.urls")),
+    # path("researcher/", include("researcher.urls")),
     # path("application/", include("application.urls")),
 ]
 

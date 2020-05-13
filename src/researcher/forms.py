@@ -7,7 +7,7 @@ from .models import Researcher
 
 
 def get_choices():
-    qs = Researcher.objects.values_list("as_of", flat=True).distinct()
+    qs = Researcher.objects.values_list("kijunbi", flat=True).distinct()
     choices = [(dt.strftime("%Y-%m-%d"), dt.strftime("%Y-%m-%d")) for dt in qs]
     choices = tuple(choices)
     return choices

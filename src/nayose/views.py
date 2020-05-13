@@ -67,7 +67,7 @@ class NayoseDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         # shokuin_id = self.kwargs.get("shokuin_id")
         context["shokuinroku"] = Shokuin.objects.filter(
-            shokuin_id="00000001").order_by("as_of").reverse().first()
+            shokuin_id="00000001").order_by("kijunbi").reverse().first()
         return context
 
 

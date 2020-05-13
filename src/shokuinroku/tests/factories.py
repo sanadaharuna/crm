@@ -8,7 +8,7 @@ class ShokuinFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Shokuin
 
-    as_of = factory.Faker("date")
+    kijunbi = factory.Faker("date")
     shokuin_id = factory.Sequence(lambda n: "%08d" % n)
     shozokumei = factory.Faker("prefecture", locale="ja_jp")
     kakarikouzamei = factory.Faker("city", locale="ja_jp")
