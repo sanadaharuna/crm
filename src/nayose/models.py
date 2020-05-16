@@ -28,3 +28,38 @@ class Nayose(models.Model):
         if (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day):
             age -= 1
         return age
+
+
+class Shokuin(models.Model):
+    kijunbi = models.DateField("基準日")
+    shokuin_id = models.CharField("職員番号", max_length=8)
+    shozokumei = models.CharField("所属名", max_length=50)
+    kakarikouzamei = models.CharField("係講座名", max_length=50, blank=True)
+    shokumei = models.CharField("職名", max_length=50, blank=True)
+    kanjishimei = models.CharField("漢字氏名", max_length=50)
+    furigana = models.CharField("フリガナ", max_length=50)
+    naisenbangou = models.CharField("内線番号", max_length=10, blank=True)
+    mail_address = models.EmailField("メールアドレス", blank=True)
+
+    def __str__(self):
+        return self.kanjishimei
+
+
+class Researcher(models.Model):
+    kijunbi = models.DateField("基準日")
+    researcher_id = models.IntegerField("研究者番号")
+    kanjishimei_sei = models.CharField("漢字氏名・姓", max_length=50)
+    kanjishimei_mei = models.CharField("漢字氏名・名", max_length=50)
+    kanashimei_sei = models.CharField("カナ氏名・姓", max_length=50)
+    kanashimei_mei = models.CharField("カナ氏名・名", max_length=50)
+    date_of_birth = models.DateField("生年月日")
+    sex = models.CharField("性別", max_length=1)
+    department = models.CharField("部局名", max_length=50)
+    title = models.CharField("職位", max_length=50)
+
+    # @property
+    # def age(self):
+    #     return calculate_age(self.date_of_birth)
+
+    def __str__(self):
+        return self.kanjishimei_sei
