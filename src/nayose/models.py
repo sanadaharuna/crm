@@ -45,9 +45,9 @@ class Shokuin(models.Model):
         return self.kanjishimei
 
 
-class Researcher(models.Model):
+class Erad(models.Model):
     kijunbi = models.DateField("基準日")
-    researcher_id = models.IntegerField("研究者番号")
+    eradcode = models.CharField("研究者番号", max_length=8)
     kanjishimei_sei = models.CharField("漢字氏名・姓", max_length=50)
     kanjishimei_mei = models.CharField("漢字氏名・名", max_length=50)
     kanashimei_sei = models.CharField("カナ氏名・姓", max_length=50)

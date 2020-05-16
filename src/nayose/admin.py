@@ -2,7 +2,7 @@ from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-from nayose.models import Nayose, Researcher, Shokuin
+from nayose.models import Nayose, Erad, Shokuin
 
 
 @admin.register(Nayose)
@@ -25,11 +25,11 @@ class ShokuinResource(resources.ModelResource):
         model = Shokuin
 
 
-@admin.register(Researcher)
-class ResearcherAdmin(ImportExportModelAdmin):
-    ordering = ["kijunbi", "researcher_id"]
+@admin.register(Erad)
+class EradAdmin(ImportExportModelAdmin):
+    ordering = ["kijunbi", "eradcode"]
 
 
 class ResearcherResource(resources.ModelResource):
     class Meta:
-        model = Researcher
+        model = Erad

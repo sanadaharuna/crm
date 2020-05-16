@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import NayoseForm, NayoseSearchForm
 from .models import Nayose
-from shokuinroku.models import Shokuin
+# from shokuinroku.models import Shokuin
 
 
 class NayoseFrontView(LoginRequiredMixin, TemplateView):
@@ -29,35 +29,35 @@ class NayoseListView(LoginRequiredMixin, ListView):
         context["q"] = self.request.GET.get("q")
         return context
 
-    def get_queryset(self):
-        if self.request.GET.get("q"):
-            # 研究者検索画面用
-            # 姓と名をつなげる
-            queryset = Nayose.objects.annotate(
-                kanjishimei=Concat("kanjishimei_sei", "kanjishimei_mei"),
-                kanashimei=Concat("kanashimei_sei", "kanashimei_mei"),
-            )
-            # 検索語の空白を削除する
-            q = self.request.GET.get("q")
-            q = q.strip()
-            table = q.maketrans({"　": "", " ": ""})
-            q = q.translate(table)
-            # 各種番号を検索する
-            if q.isdecimal():
-                queryset = queryset.filter(Q(nayose_id=q) | Q(
-                    erad_id=q) | Q(shokuin_id=q) | Q(hijoukin_id=q))
-            # 氏名を検索する
-            else:
-                queryset = queryset.filter(
-                    Q(kanjishimei__icontains=q) | Q(kanashimei__icontains=q))
-            # カナ氏名でソートする
-            queryset = queryset.order_by("kanashimei")
-        elif self.request.GET.get("shokuin_id"):
-            shokuin_id = self.request.GET.get("shokuin_id")
-            queryset = Nayose.objects.filter(shokuin_id=shokuin_id)
-        else:
-            queryset = Nayose.objects.none()
-        return queryset
+    # def get_queryset(self):
+    #     if self.request.GET.get("q"):
+    #         # 研究者検索画面用
+    #         # 姓と名をつなげる
+    #         queryset = Nayose.objects.annotate(
+    #             kanjishimei=Concat("kanjishimei_sei", "kanjishimei_mei"),
+    #             kanashimei=Concat("kanashimei_sei", "kanashimei_mei"),
+    #         )
+    #         # 検索語の空白を削除する
+    #         q = self.request.GET.get("q")
+    #         q = q.strip()
+    #         table = q.maketrans({"　": "", " ": ""})
+    #         q = q.translate(table)
+    #         # 各種番号を検索する
+    #         if q.isdecimal():
+    #             queryset = queryset.filter(Q(nayose_id=q) | Q(
+    #                 erad_id=q) | Q(shokuin_id=q) | Q(hijoukin_id=q))
+    #         # 氏名を検索する
+    #         else:
+    #             queryset = queryset.filter(
+    #                 Q(kanjishimei__icontains=q) | Q(kanashimei__icontains=q))
+    #         # カナ氏名でソートする
+    #         queryset = queryset.order_by("kanashimei")
+    #     elif self.request.GET.get("shokuin_id"):
+    #         shokuin_id = self.request.GET.get("shokuin_id")
+    #         queryset = Nayose.objects.filter(shokuin_id=shokuin_id)
+    #     else:
+    #         queryset = Nayose.objects.none()
+    #     return queryset
 
 
 class NayoseDetailView(LoginRequiredMixin, DetailView):
@@ -66,8 +66,8 @@ class NayoseDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # shokuin_id = self.kwargs.get("shokuin_id")
-        context["shokuinroku"] = Shokuin.objects.filter(
-            shokuin_id="00000001").order_by("kijunbi").reverse().first()
+        # context["shokuinroku"] = Shokuin.objects.filter(
+        #     shokuin_id="00000001").order_by("kijunbi").reverse().first()
         return context
 
 

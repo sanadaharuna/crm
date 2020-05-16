@@ -1,0 +1,13 @@
+{% extends "nayose/base_nayose.html" %}
+
+{% block content %}
+<form action="" method="get">
+    {{ filter.form.as_p }}
+    <input type="submit" />
+</form>
+
+{% for obj in filter.qs %}
+{{ obj.eradcode }} <br />
+{% endfor %}
+
+{% endblock %}
