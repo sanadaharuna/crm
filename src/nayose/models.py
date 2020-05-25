@@ -57,9 +57,5 @@ class Erad(models.Model):
     department = models.CharField("部局名", max_length=50)
     title = models.CharField("職位", max_length=50)
 
-    # @property
-    # def age(self):
-    #     return calculate_age(self.date_of_birth)
-
     def __str__(self):
-        return self.kanjishimei_sei
+        return self.kanjishimei_sei + self.kanjishimei_mei
