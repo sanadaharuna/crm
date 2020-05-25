@@ -10,6 +10,8 @@ from .forms import NayoseForm, NayoseSearchForm
 from .models import Nayose
 # from nayose.models import Shokuin
 from django_filters.views import FilterView
+from django_filters import FilterSet
+from django.shortcuts import render
 
 
 class NayoseFrontView(LoginRequiredMixin, TemplateView):
@@ -20,6 +22,22 @@ class NayoseFrontView(LoginRequiredMixin, TemplateView):
         context["search_form"] = NayoseSearchForm()
         context["q"] = self.request.GET.get("foundation")
         return context
+
+
+class NayoseFilter(FilterSet):
+    class Meta:
+        model = Nayose
+        fields = ["kanjishimei_sei", "kanjishimei_mei"]
+
+
+def nayose_list(request):
+    qs = Nayose.objects.all()
+    ordering = request.GET.get("odering")
+    if ordering:
+        qs = Nayose.objects.all().order_by(ordering)
+        return qs
+    f = NayoseFilter(request.GET, queryset=qs)
+    return render(request, "nayose/nayose_list.html", {"object_list": f})
 
 
 class NayoseFilterView(FilterView):
