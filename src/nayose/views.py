@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-# from django.db.models.functions import Concat
-# from django.db.models import Q
+from django.db.models.functions import Concat
+from django.db.models import Q
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import NayoseForm, NayoseSearchForm

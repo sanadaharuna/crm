@@ -23,17 +23,29 @@ class NayoseForm(forms.ModelForm):
 
 
 class NayoseSearchForm(forms.Form):
-    q = forms.CharField(label="氏名、研究者番号、職員番号", required=False)
+    nayose_id = forms.CharField(label="名寄せID", required=False)
+    erad_id = forms.CharField(label="研究者番号", required=False)
+    shokuin_id = forms.CharField(label="常勤職員番号", required=False)
+    hijoukin_id = forms.CharField(label="非常勤職員番号", required=False)
+    kanjishimei = forms.CharField(label="漢字氏名", required=False)
+    kanashimei = forms.CharField(label="カナ氏名", required=False)
 
     def __init__(self, *args, **kwargs):
         super(NayoseSearchForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Row(
-                Column('q', css_class='form-group col-md-6 mb-0'),
+                Column('nayose_id', css_class='form-group col-md-3 mb-0'),
+                Column('erad_id', css_class='form-group col-md-3 mb-0'),
+                Column('shokuin_id', css_class='form-group col-md-3 mb-0'),
+                Column('hijoukin_id', css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
-            # Submit('submit', '検索'),
+            Row(
+                Column('kanjishimei', css_class='form-group col-md-6 mb-0'),
+                Column('kanashimei', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
         )
         self.helper.form_method = "GET"
         self.helper.form_action = reverse("nayose:list")
