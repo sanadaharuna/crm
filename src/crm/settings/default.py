@@ -18,23 +18,20 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    "base",
     "nayose",
-    "kaken",
-    # "seminar",
-    # "promotion",
-    # "consignment",
-    # "matching",
-    # "reviewer",
-    # "application",
-    "adminlte3",
+    "support",
+    "erad",
+    "seminar",
+    "policy",
+    "grant",
     "accounts",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "crispy_forms",
     "import_export",
-    "django_filters",
+    # "django_filters",
+    # "bootstrap4",
     # "bootstrap_datepicker_plus",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -62,7 +59,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(BASE_DIR),
+            os.path.join(BASE_DIR, "templates"),
             os.path.join(BASE_DIR, "templates", "allauth"),
         ],
         "APP_DIRS": True,
@@ -82,25 +79,17 @@ WSGI_APPLICATION = "crm.wsgi.application"
 
 # Database
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": "crm",
-#         "USER": "root",
-#         "PASSWORD": "3wf5qnPbnA7q",
-#         "HOST": "mysql",
-#         "PORT": "3306",
-#         "OPTIONS": {"charset": "utf8mb4"},
-#     }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'crm.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "crm",
+        "USER": "root",
+        "PASSWORD": "3wf5qnPbnA7q",
+        "HOST": "mysql",
+        "PORT": "3306",
+        "OPTIONS": {"charset": "utf8mb4"},
     }
 }
-
 
 # Password validation
 
@@ -126,9 +115,8 @@ NUMBER_GROUPING = 3
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = "/crm/static/"
-STATIC_ROOT = "/static"
+STATIC_ROOT = "/code/static"
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 
 # crispy-forms
@@ -146,5 +134,5 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = "nayose:front"
+LOGIN_REDIRECT_URL = "erad:front"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/crm/accounts/login/"

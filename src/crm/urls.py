@@ -2,21 +2,18 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
+admin.site.site_title = "Galette CRM"
+admin.site.site_header = "Galette CRM"
 
 urlpatterns = [
-    path("", include("base.urls")),
+    path("", include("erad.urls")),
+    path("seminar/", include("seminar.urls")),
+    path("support/", include("support.urls")),
+    path("policy/", include("policy.urls")),
     path("nayose/", include("nayose.urls")),
+    path("grant/", include("grant.urls")),
     path("accounts/", include("allauth.urls")),
-    # path("promotion/", include("promotion.urls")),
-    # path("seminar/", include("seminar.urls")),
-    path("kaken/", include("kaken.urls")),
-    # path("consignment/", include("consignment.urls")),
-    # path("matching/", include("matching.urls")),
-    # path("reviewer/", include("reviewer.urls")),
     path("admin/", admin.site.urls),
-    # path("shokuinroku/", include("shokuinroku.urls")),
-    # path("researcher/", include("researcher.urls")),
-    # path("application/", include("application.urls")),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,369 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load humanize %}
+{% block header %}研究者情報{% endblock header %}
+{% block admin_changelist %}{% url 'admin:erad_researcher_changelist' %}{% endblock admin_changelist %}
+
+{% block contents %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card my-3">
+            <div class="card-header">
+                <h3 class="card-title h5">基本情報</h3>
+                <p>e-Rad部局退任日に日付が入っている場合は、退任時点のデータです</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="row">
+                            <dt class="col-md-3">氏名</dt>
+                            <dd class="col-md-9">{{ object.kenkyuushashimei_sei }} {{ object.kenkyuushashimei_mei }}
+                                <span class="small text-muted">{{ object.furigana_sei }}
+                                    {{ object.furigana_mei }}</span></dd>
+                            <dt class="col-md-3">通称名</dt>
+                            <dd class="col-md-9">{{ object.tsuushoumei_sei|default:"登録なし" }}
+                                {{ object.tsuushoumei_mei|default:"" }} <span
+                                    class="small text-muted">{{ object.tsuushoumeifurigana_sei|default:"" }}
+                                    {{ object.tsuushoumeifurigana_mei|default:"" }}</span></dd>
+                            <dt class="col-md-3">生年月日</dt>
+                            <dd class="col-md-9">{{ object.seinengappi }}</dd>
+                            <dt class="col-md-3">今日時点の年齢</dt>
+                            <dd class="col-md-9">{{ object.age }} 歳</dd>
+                            <dt class="col-md-3">性別</dt>
+                            <dd class="col-md-9">{{ object.get_seibetsu_display }}</dd>
+                            <dt class="col-md-3">部局名</dt>
+                            <dd class="col-md-9">{{ object.bukyokumei }}</dd>
+                            <dt class="col-md-3">職名</dt>
+                            <dd class="col-md-9">{{ object.shokumei }}</dd>
+                            <dt class="col-md-3">e-Rad研究者番号</dt>
+                            <dd class="col-md-9">{{ object.pk }}</dd>
+                            <dt class="col-md-3">名寄せID</dt>
+                            <dd class="col-md-9"><a
+                                    href="{% url 'admin:nayose_nayose_change' nayose.pk %}">{{ nayose.pk|default:"登録なし" }}</a></dd>
+                            <dt class="col-md-3">職員番号</dt>
+                            <dd class="col-md-9">{{ nayose.shokuincode|default:"登録なし" }}</dd>
+                            <dt class="col-md-3">非常勤職員番号</dt>
+                            <dd class="col-md-9">{{ nayose.hijoukincode|default:"登録なし" }}</a></dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <dl class="row">
+                            <dt class="col-md-4">学位</dt>
+                            <dd class="col-md-8">{{ object.gakui|default:"登録なし" }}</dd>
+                            <dt class="col-md-4">学位取得年月日</dt>
+                            <dd class="col-md-8">{{ object.gakuishutokunengappi|default:"登録なし" }}</dd>
+                            <dt class="col-md-4">メールアドレス1</dt>
+                            <dd class="col-md-8">{{ object.mailaddress1|default:"登録なし"  }}</dd>
+                            <dt class="col-md-4">メールアドレス2</dt>
+                            <dd class="col-md-8">{{ object.mailaddress2|default:"登録なし" }}</dd>
+                            <dt class="col-md-4">科研費応募資格</dt>
+                            <dd class="col-md-8">{{ object.kakenhiouboshikaku }}</dd>
+                            <dt class="col-md-4">主たる研究機関</dt>
+                            <dd class="col-md-8">{{ object.shutarukenkyuukikan }}</dd>
+                            <dt class="col-md-4">e-Rad部局着任日</dt>
+                            <dd class="col-md-8">{{ object.bukyokuchakuninbi }}</dd>
+                            <dt class="col-md-4">e-Rad部局退任日</dt>
+                            <dd class="col-md-8">{{ object.bukyokutaininbi|default:"登録なし" }}</dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<h3 class="h5">イベント、セミナー</h3>
+{% if lecturer_list %}
+<h6>講師として参加</h6>
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th width=10%>年度</th>
+            <th width=20%>開催日</th>
+            <th width=30%>イベント名</th>
+            <th width=30%>会場</th>
+            <th width=10%></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lecturer in lecturer_list %}
+        <tr>
+            <td>{{ lecturer.seminar.nendo }}</td>
+            <td>{{ lecturer.seminar.kaisaibi }}</td>
+            <td>{{ lecturer.seminar.title }}</td>
+            <td>{{ lecturer.seminar.venue }}</td>
+            <td> <a class="btn btn-outline-info btn-sm" href="{% url 'seminar:detail' lecturer.seminar.pk %}">
+                    詳細
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if attendee_list %}
+<h6>参加状況</h6>
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th width=10%>年度</th>
+            <th width=20%>開催日</th>
+            <th width=30%>イベント名</th>
+            <th width=30%>会場</th>
+            <th width=10%></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for attendee in attendee_list %}
+        <tr>
+            <td>{{ attendee.seminar.nendo }}</td>
+            <td>{{ attendee.seminar.kaisaibi }}</td>
+            <td>{{ attendee.seminar.title }}</td>
+            <td>{{ attendee.seminar.venue }}</td>
+            <td> <a class="btn btn-outline-info btn-sm" href="{% url 'seminar:detail' attendee.seminar.pk %}">
+                    詳細
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
+<hr>
+<h3 class="h5">科研費申請書添削</h3>
+{% if support_kakenhi_list %}
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th>年度</th>
+            <th>受付日</th>
+            <th>完了日</th>
+            <th>研究種目</th>
+            <th>主担当</th>
+            <th>副担当</th>
+            <th>備考</th>
+            <th>採否</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for support_kakenhi in support_kakenhi_list %}
+        <tr>
+            <td>{{ support_kakenhi.nendo }}</td>
+            <td>{{ support_kakenhi.uketsukebi }}</td>
+            <td>{{ support_kakenhi.kanryoubi }}</td>
+            <td>{{ support_kakenhi.shumoku }}</td>
+            <td>{{ support_kakenhi.shutantou }}</td>
+            <td>{{ support_kakenhi.fukutantou }}</td>
+            <td>{{ support_kakenhi.bikou }}</td>
+            <td>{{ support_kakenhi.get_saihi_display }}</td>
+            <td> <a class="btn btn-outline-info btn-sm"
+                    href="{% url 'admin:support_kakenhi_change' support_kakenhi.pk %}">
+                    編集
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
+<hr>
+<h3 class="h5">競争的研究資金申請支援</h3>
+{% if support_competitivefund_list %}
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th width=5%>年度</th>
+            <th width=10%>受付日</th>
+            <th width=5%>主担当</th>
+            <th width=5%>副担当</th>
+            <th width=45%>配分機関・公募名</th>
+            <th width=10%>完了日</th>
+            <th width=5%>採否</th>
+            <th width=5%></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for support_competitivefund in support_competitivefund_list %}
+        <tr>
+            <td>{{ support_competitivefund.nendo }}</td>
+            <td>{{ support_competitivefund.uketsukebi|date:"Y-m-d" }}</td>
+            <td>{{ support_competitivefund.shutantou }}</td>
+            <td>{{ support_competitivefund.fukutantou }}</td>
+            <td>{{ support_competitivefund.haibunkikan }}<br>{{ support_competitivefund.koubomei }}</td>
+            <td>{{ support_competitivefund.kanryoubi|date:"Y-m-d" }}</td>
+            <td>{{ support_competitivefund.get_saihi_display }}</td>
+            <td>
+                <a class="btn btn-outline-info btn-sm"
+                    href="{% url 'admin:support_competitivefund_change' support_competitivefund.pk %}">
+                    編集
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
+<hr>
+<h3 class="h5">マッチング支援</h3>
+{% if support_matching_list %}
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th>年度</th>
+            <th>受付日</th>
+            <th>完了日</th>
+            <th>主担当</th>
+            <th>副担当</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for support_matching in support_matching_list %}
+        <tr>
+            <td>{{ support_matching.nendo }}</td>
+            <td>{{ support_matching.uketsukebi }}</td>
+            <td>{{ support_matching.kanryoubi }}</td>
+            <td>{{ support_matching.shutantou }}</td>
+            <td>{{ support_matching.fukutantou }}</td>
+            <td> <a class="btn btn-outline-info btn-sm"
+                    href="{% url 'admin:support_matching_change' support_matching.pk %}">
+                    編集
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
+<hr>
+<h3 class="h5">研究推進施策</h3>
+{% if participant_list %}
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th>年度</th>
+            <th>施策名</th>
+            <th>備考</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for participant in participant_list %}
+        <tr>
+            <td>{{ participant.nendo }}</td>
+            <td>{{ participant.policy.shisakumei }}</td>
+            <td>{{ participant.bikou }}</td>
+            <td> <a class="btn btn-outline-info btn-sm"
+                    href="{% url 'admin:policy_participant_change' participant.pk %}">
+                    編集
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
+<hr>
+<h3 class="h5">U-goグラント応募採択課題</h3>
+{% if grant_member_list %}
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th width=10%>年度</th>
+            <th width=10%>役割</th>
+            <th width=50%>課題名</th>
+            <th width=10%>継続</th>
+            <th width=10%>採否</th>
+            <th width=10%></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for grant_member in grant_member_list %}
+        <tr>
+            <td>{{ grant_member.project.nendo }}</td>
+            <td>{{ grant_member.get_role_display }}</td>
+            <td>{{ grant_member.project.kadaimei }}</td>
+            <td>{{ grant_member.project.get_kubun_display }}</td>
+            <td>{{ grant_member.project.get_saihi_display }}</td>
+            <td> <a class="btn btn-outline-info btn-sm"
+                    href="{% url 'grant:detail' grant_member.project.pk %}">
+                    詳細
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
+<hr>
+<h3 class="h5">科研費応募採択状況</h3>
+{% if kakenhi_list %}
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th width=10%>年度</th>
+            <th width=20%>研究種目</th>
+            <th width=10%>研究期間</th>
+            <th width=50%>課題名</th>
+            <th width=10%>採否</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for kakenhi in kakenhi_list %}
+        <tr>
+            <td>{{ kakenhi.nendo }}</td>
+            <td>{{ kakenhi.jigyoumei }}</td>
+            <td>{{ kakenhi.kaishi_nendo }} - {{ kakenhi.shuuryou_nendo }}</td>
+            <td>{{ kakenhi.kadaimei }}</td>
+            <td>{{ kakenhi.get_status_display }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
+<hr>
+<h3 class="h5">e-Rad応募採択状況</h3>
+{% if erad_list %}
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th width=10%>年度</th>
+            <th width=30%>事業名</th>
+            <th width=10%>研究期間</th>
+            <th width=40%>課題名</th>
+            <th width=10%>採否</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for erad in erad_list %}
+        <tr>
+            <td>{{ erad.nendo }}</td>
+            <td>{{ erad.seidomei }}<br>{{ erad.jigyoumei }}<br>{{ erad.koubogroupmei }}<br>{{ erad.koubomei }}</td>
+            <td>{{ erad.kaishi_nendo }} - {{ erad.shuuryou_nendo }}</td>
+            <td>{{ erad.kadaimei }}</td>
+            <td>{{ erad.get_status_display }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
+
+
+{% endblock contents%}

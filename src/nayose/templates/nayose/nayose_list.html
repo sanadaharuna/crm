@@ -1,94 +1,62 @@
-{% extends "nayose/base_nayose.html" %}
+{% extends "_base.html" %}
 {% load static %}
 {% load humanize %}
-{% load base_paginate %}
+{% block header %}名寄せデータ{% endblock header %}
+{% block admin_changelist %}{% url 'admin:nayose_nayose_changelist' %}{% endblock admin_changelist %}
 
 {% block page_actions %}検索結果{% endblock %}
 
-{% block content %}
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                {% if object_list %}
-                <p>
-                    検索結果：<span class="h2">{{ paginator.count | intcomma }}</span> 件
-                </p>
-                <table class="table table-sm table-hover">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>名寄せID</th>
-                            <th>研究者番号</th>
-                            <th>職員番号（常勤）</th>
-                            <th>職員番号（非常勤）</th>
-                            <th>氏名</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for object in object_list %}
-                        <tr>
-                            <td>{{ object.pk }}</td>
-                            <td>{{ object.erad_id }}</td>
-                            <td>{{ object.shokuin_id }}</td>
-                            <td>{{ object.hijoukin_id }}</td>
-                            <td>{{ object.kanjishimei_sei }} {{ object.kanjishimei_mei }}</td>
-                            <td>
-                                <a class="btn btn-outline-info btn-sm" href="{% url 'nayose:detail' object.pk %}">
-                                    <i class="fas fa-info-circle"></i>
-                                    詳細
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <!-- pagination -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center ">
-                    <!-- 前へ の部分 -->
-                    {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <!-- <a class="page-link" href="?q={{ q }}&page={{ page_obj.previous_page_number }}"> -->
-                        <a class="page-link" href="{%  url_replace request 'page' page_obj.previous_page_number %}">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
+{% block contents %}
 
-                    <!-- 数字の部分 -->
-                    {% for num in page_obj.paginator.page_range %}
-                    {% if num <= page_obj.number|add:5 and num >= page_obj.number|add:-5 %}
-
-                    {% if page_obj.number == num %}
-                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+{% if object_list %}
+<div class="alert alert-primary my-3">
+    検索結果：<span class="h3">{{ paginator.count | intcomma }}</span> 件
+</div>
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th width=8%>名寄せID</th>
+                <th width=8%>研究者番号</th>
+                <th width=8%>職員番号</th>
+                <th width=8%>非常勤番号</th>
+                <th width=15%>氏名</th>
+                <th width=8%>生年月日</th>
+                <th width=5%>性別</th>
+                <th width=10%>ORCID</th>
+                <th width=10%></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object.nayose_id }}</td>
+                <td>
+                    {% if object.eradcode %}
+                    <a href="{% url 'erad:detail' object.eradcode %}">{{ object.eradcode }}</a>
                     {% else %}
-                    <!-- <li class="page-item"><a class="page-link" href="?q={{ q }}&page={{ num }}">{{ num }}</a> -->
-                    <li class="page-item"><a class="page-link"
-                            href="?{%  url_replace request 'page' num %}">{{ num }}</a>
-                    </li>
+                    登録なし</a>
                     {% endif %}
-                    {% endif %}
-                    {% endfor %}
-
-                    <!-- 次へ の部分 -->
-                    {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <!-- <a class="page-link" href="?q={{ q }}&page={{ page_obj.next_page_number }}"> -->
-                        <a class="page-link" href="?{%  url_replace request 'page' page_obj.next_page_number %}">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% else %}
-            <p class="my-5">見つかりませんでした。</p>
-            {% endif %}
-        </div>
-    </div>
+                </td>
+                <td>{{ object.shokuincode|default:"登録なし" }}</td>
+                <td>{{ object.hijoukincode|default:"登録なし" }}</td>
+                <td>{{ object.kanjishimei_sei }} {{ object.kanjishimei_mei }}<br>
+                    <span class="small text-muted">{{ object.kanashimei_sei }} {{ object.kanashimei_mei }}</span></td>
+                <td>{{ object.seinengappi }}</td>
+                <td>{{ object.get_seibetsu_display }}</td>
+                <td>{{ object.orcid|default:"登録なし" }}</td>
+                <td>
+                    <a class="btn btn-outline-info btn-sm" href="{% url 'admin:nayose_nayose_change' object.pk %}">
+                        編集
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
-</div>
+{% else %}
+<p class="my-5">見つかりませんでした。</p>
+{% endif %}
 
 {% endblock %}

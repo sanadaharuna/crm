@@ -1,0 +1,55 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load humanize %}
+{% block header %}研究者検索 結果{% endblock header %}
+{% block admin_changelist %}{% url 'admin:erad_researcher_changelist' %}{% endblock admin_changelist %}
+
+
+{% block contents %}
+
+{% if object_list %}
+<div class="alert alert-primary my-3">
+    検索結果：<span class="h3">{{ paginator.count | intcomma }}</span> 件
+</div>
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th width=10%>研究者番号</th>
+                <th width=20%>漢字氏名</th>
+                <th width=10%>通称名</th>
+                <th width=20%>英字氏名</th>
+                <th width=10%>部局名</th>
+                <th width=10%>職位</th>
+                <th width=10%></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object.eradcode }}</td>
+                <td>{{ object.kenkyuushashimei_sei }} {{ object.kenkyuushashimei_mei }}<br>
+                    <span class="small text-muted">{{ object.furigana_sei }} {{ object.furigana_mei }}</span></td>
+                <td>{{ object.tsuushoumei_sei|default:"" }} {{ object.tsuushoumei_mei|default:"" }}<br>
+                    <span class="small text-muted">{{ object.tsuushoumeifurigana_sei|default:"" }}
+                        {{ object.tsuushoumeifurigana_mei|default:"" }}</span></td>
+                <td>{{ object.eiji_sei|default:"" }} {{ object.eiji_mei|default:"" }}</td>
+                <td>{{ object.bukyokumei }}</td>
+                <td>{{ object.shokumei }}</td>
+                <td>
+                    <a class="btn btn-outline-info btn-sm" href="{% url 'erad:detail' object.pk %}">
+                        詳細
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="my-5">見つかりませんでした。</p>
+{% endif %}
+
+
+
+{% endblock contents %}

@@ -1,0 +1,61 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block header %}競争的研究資金申請支援{% endblock header %}
+{% block admin_changelist %}{% url 'admin:support_competitivefund_changelist' %}{% endblock admin_changelist %}
+
+{% block contents %}
+
+{% if object_list %}
+<div class="alert alert-primary my-3">
+    検索結果：<span class="h3">{{ paginator.count | intcomma }}</span> 件
+</div>
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th width=3%>#</th>
+                <th width=5%>年度</th>
+                <th width=8%>受付日</th>
+                <th width=8%>研究者番号</th>
+                <th width=8%>氏名</th>
+                <th width=8%>所属</th>
+                <th width=5%>主担当</th>
+                <th width=5%>副担当</th>
+                <th width=32%>配分機関・公募名</th>
+                <th width=8%>完了日</th>
+                <th width=5%>採否</th>
+                <th width=5%></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object.pk }}</td>
+                <td>{{ object.nendo }}</td>
+                <td>{{ object.uketsukebi|date:"Y-m-d" }}</td>
+                <td><a href="{% url 'erad:detail' object.eradcode %}">{{ object.eradcode }}</a></td>
+                <td>{{ object.shimei }}</td>
+                <td>{{ object.shozoku }}</td>
+                <td>{{ object.shutantou }}</td>
+                <td>{{ object.fukutantou }}</td>
+                <td>{{ object.haibunkikan }}<br>{{ object.koubomei }}</td>
+                <td>{{ object.kanryoubi|date:"Y-m-d" }}</td>
+                <td>{{ object.get_saihi_display }}</td>
+                <td>
+                    <a class="btn btn-outline-info btn-sm" href="{% url 'admin:support_competitivefund_change' object.pk %}">
+                        編集
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% else %}
+<p class="my-5">見つかりませんでした。</p>
+{% endif %}
+
+{% endblock contents %}

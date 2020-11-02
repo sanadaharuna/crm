@@ -1,0 +1,49 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block header %}一般的な照会{% endblock header %}
+
+{% block contents %}
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>#</th>
+                <th>名寄せID</th>
+                <th>氏名</th>
+                <th>所属</th>
+                <th>年度</th>
+                <th>受付日</th>
+                <th>主担当</th>
+                <th>副担当</th>
+                <th>完了日</th>
+                <th>備考</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for kaken in object_list %}
+            <tr>
+                <td>{{ kaken.pk }}</td>
+                <td>{{ kaken.date_received | date:"Y-m-d" }}</td>
+                <td>{{ kaken.name }}</td>
+                <td>{{ kaken.shozoku }}</td>
+                <td>{{ kaken.category }}</td>
+                <td>{{ kaken.shutantou }}</td>
+                <td>{{ kaken.fukutantou }}</td>
+                <td>{{ kaken.remarks }}</td>
+                <td>{{ kaken.judgement }}</td>
+                <td>
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'kaken:update' kaken.pk %}">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'kaken:delete' kaken.pk %}">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock contents %}
