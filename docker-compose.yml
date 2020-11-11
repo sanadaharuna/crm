@@ -17,7 +17,7 @@ services:
     image: nginx:1.19.2-alpine
     container_name: crm_nginx
     volumes:
-      - ./nginx/conf:/etc/nginx/conf.d
+      # - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./nginx/log:/var/log/nginx
       - ./src/static:/static
@@ -25,9 +25,9 @@ services:
       - django
     restart: always
 
-volumes:
-  django.db.volume:
-    driver: local
+# volumes:
+#   django.db.volume:
+#     driver: local
 
 networks:
   default:

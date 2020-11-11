@@ -114,7 +114,7 @@ NUMBER_GROUPING = 3
 
 # Static files (CSS, JavaScript, Images)
 
-STATIC_URL = "/crm/static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = "/code/static"
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
 

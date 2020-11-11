@@ -11,25 +11,37 @@
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
     <!-- Favicons -->
     <link rel="icon" href="{% static 'favicon.ico' %}" />
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: 研究者検索
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
     <!-- Custom styles for this template -->
     <link href="{% static 'styles.css' %}" rel="stylesheet" />
 </head>
 
 <body>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="{% url 'erad:front' %}">Galatte CRM</a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
-            data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="{% url 'account_logout' %}">Log out</a>
-            </li>
-        </ul>
-    </nav>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" href="{% url 'erad:front' %}">Galette CRM</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="{% url 'erad:front' %}">研究者検索</a>
+            <a class="p-2 text-dark" href="">データ管理</a>
+        </nav>
+        <a class="btn btn-outline-info btn-sm" href="{% url 'admin:logout' %}">Log out</a>
+    </div>
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <main role="main" class="col">
                 {% if messages %}
@@ -45,15 +57,8 @@
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h3">{% block header %}{% endblock header %}</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <a class="btn btn-sm btn-outline-secondary"
-                            href="{% block admin_changelist %}{% endblock admin_changelist %}" target="_blank">
-                            admin
-                        </a>
-                    </div>
                 </div>
                 {% block contents %} {% endblock contents %}
-                <hr>
             </main>
         </div>
     </div>
@@ -67,24 +72,13 @@
                     <ul class="list-unstyled text-small">
                         <li><a class="text-muted" href="{% url 'erad:front' %}">研究者検索</a></li>
                     </ul>
-                    <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="#">システムについて</a></li>
-                    </ul>
                 </div>
                 <div class="col-md-3">
                     <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="{% url 'seminar:list' %}">イベント、セミナー</a></li>
-                        <li><a class="text-muted" href="{% url 'support:kakenhi' %}">科研費申請書添削</a></li>
-                        <li><a class="text-muted" href="{% url 'support:competitivefund' %}">競争的研究資金申請支援</a></li>
+                        <li><a class="text-muted" href="">データ管理</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="{% url 'support:matching' %}">マッチング支援</a></li>
-                        <li><a class="text-muted" href="{% url 'policy:list' %}">研究推進施策</a></li>
-                        <li><a class="text-muted" href="{% url 'grant:list' %}">U-goグラント応募採択課題</a></li>
-                        <li><a class="text-muted" href="{% url 'nayose:front' %}">名寄せデータ</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
