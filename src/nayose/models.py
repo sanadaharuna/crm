@@ -3,6 +3,9 @@ from django.db import models
 
 
 class Nayose(models.Model):
+    class Meta:
+        verbose_name = verbose_name_plural = "名寄せデータ"
+
     nayose_id = models.AutoField("名寄せID", primary_key=True)
     eradcode = models.CharField(
         "研究者番号", max_length=8, blank=True, null=True, unique=True)
@@ -28,6 +31,5 @@ class Nayose(models.Model):
             age -= 1
         return age
 
-    class Meta:
-        verbose_name = "名寄せデータ"
-        verbose_name_plural = "名寄せデータ"
+    def __str__(self):
+        return self.pk

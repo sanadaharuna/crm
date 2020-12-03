@@ -4,10 +4,6 @@ from import_export.admin import ImportExportModelAdmin
 
 from .models import Application, Researcher
 
-#
-# 研究者データ
-#
-
 
 class ResearcherResource(resources.ModelResource):
     class Meta:
@@ -17,13 +13,11 @@ class ResearcherResource(resources.ModelResource):
 @admin.register(Researcher)
 class ResearcherAdmin(ImportExportModelAdmin):
     resource_class = ResearcherResource
-    list_display = ("eradcode", "kenkyuushashimei_sei",
-                    "kenkyuushashimei_mei", "shozoku")
-
-
-#
-# 応募データ
-#
+    list_display = ("eradcode", "kenkyuushashimei_sei", "kenkyuushashimei_mei",
+                    "furigana_sei", "furigana_mei", "bukyokumei", "shokumei")
+    search_fields = ("eradcode", "kenkyuushashimei_sei", "kenkyuushashimei_mei",
+                     "furigana_sei", "furigana_mei", "bukyokumei", "shokumei")
+    ordering = ("furigana_sei", "furigana_mei")
 
 
 class ApplicationResource(resources.ModelResource):

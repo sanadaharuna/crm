@@ -1,18 +1,17 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
-from django.db.models.functions import Concat
-from django.views.generic import DetailView, ListView, TemplateView
+from django.db.models import Count, Q
+from django.views.generic import DetailView, ListView
+from grant.models import Member
 from nayose.models import Nayose
 from policy.models import Participant
 from seminar.models import Attendee, Lecturer
 from support.models import CompetitiveFund, Kakenhi, Matching
-from grant.models import Member
 
 from .forms import ResearcherSearchForm
 from .models import Application, Researcher
 
 
-class ResearcherFrontView(LoginRequiredMixin, TemplateView):
+class ResearcherFrontView(LoginRequiredMixin, ListView):
     template_name = "erad/researcher_front.html"
 
     def get_context_data(self, **kwargs):
@@ -20,46 +19,39 @@ class ResearcherFrontView(LoginRequiredMixin, TemplateView):
         context["search_form"] = ResearcherSearchForm()
         return context
 
+    def get_queryset(self):
+        queryset = Researcher.objects.values("bukyokumei").annotate(cnt=Count(
+            "bukyokumei")).order_by("-cnt")
+        return queryset
+
 
 class ResearcherListView(LoginRequiredMixin, ListView):
     paginate_by = 10000
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["q"] = self.request.GET.get("q")
+        context["shimei"] = self.request.GET.get("shimei")
+        context["shozoku"] = self.request.GET.get("shozoku")
         return context
 
     def get_queryset(self):
-        if self.request.GET.get("q"):
-            # 検索用に名寄せ氏名の姓と名をつなげる
-            queryset = Researcher.objects.annotate(
-                kanjishimei=Concat("kenkyuushashimei_sei",
-                                   "kenkyuushashimei_mei"),
-                kanashimei=Concat("furigana_sei", "furigana_mei"),
-                tsuushoumei=Concat("tsuushoumei_sei", "tsuushoumei_mei"),
-                tsuushoumei_kana=Concat(
-                    "tsuushoumeifurigana_sei", "tsuushoumeifurigana_mei"),
-                eijishimei=Concat("eiji_sei", "eiji_mei")
-            )
+        queryset = Researcher.objects.all()
+        if self.request.GET.get("shimei"):
             # 検索クエリ内の空白文字を削除する
-            q = self.request.GET.get("q")
-            q = q.strip()
-            table = q.maketrans({"　": "", " ": ""})
-            q = q.translate(table)
+            shimei = self.request.GET.get("shimei").strip()
+            table = str.maketrans({"　": "", " ": ""})
+            shimei = shimei.translate(table)
             # 検索する
-            if q.isdecimal():
-                queryset = queryset.filter(eradcode=q)
-            else:
-                queryset = queryset.filter(
-                    Q(kanjishimei__icontains=q)
-                    | Q(kanashimei__icontains=q)
-                    | Q(tsuushoumei__icontains=q)
-                    | Q(eijishimei__icontains=q)
-                )
-            # カナ氏名でソートする
-            queryset = queryset.order_by("kanashimei")
-        else:
-            queryset = Researcher.objects.none()
+            queryset = queryset.filter(
+                Q(kanjishimei__icontains=shimei)
+                | Q(kanashimei__icontains=shimei)
+                | Q(tsuushoumei__icontains=shimei)
+                | Q(eijishimei__icontains=shimei)
+            )
+        if self.request.GET.get("shozoku"):
+            shozoku = self.request.GET.get("shozoku")
+            queryset = queryset.filter(bukyokumei__icontains=shozoku)
+        queryset = queryset.order_by("kanashimei")
         return queryset
 
 

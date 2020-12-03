@@ -4,13 +4,14 @@ from django.db import models
 
 
 class Researcher(models.Model):
+    class Meta:
+        verbose_name = verbose_name_plural = "e-Rad研究者データ"
+
     eradcode = models.CharField("研究者番号", max_length=8, primary_key=True)
     kenkyuushashimei_sei = models.CharField("研究者氏名-姓", max_length=50)
     kenkyuushashimei_mei = models.CharField("研究者氏名-名", max_length=50)
-    furigana_sei = models.CharField(
-        "フリガナ-姓", max_length=50, blank=True, null=True)
-    furigana_mei = models.CharField(
-        "フリガナ-名", max_length=50,  blank=True, null=True)
+    furigana_sei = models.CharField("フリガナ-姓", max_length=50)
+    furigana_mei = models.CharField("フリガナ-名", max_length=50)
     tsuushoumei_sei = models.CharField(
         "通称名-姓", max_length=50,  blank=True, null=True)
     tsuushoumei_mei = models.CharField(
@@ -35,21 +36,30 @@ class Researcher(models.Model):
     shutarukenkyuukikan = models.CharField("主たる研究機関", max_length=1)
     bukyokuchakuninbi = models.DateField("部局着任日", blank=True, null=True)
     bukyokutaininbi = models.DateField("部局退任日", blank=True, null=True)
+    # 各種氏名を連結したフルネーム
+    kanjishimei = models.CharField("研究者氏名", max_length=100)
+    kanashimei = models.CharField("フリガナ", max_length=100)
+    tsuushoumei = models.CharField(
+        "通称名", max_length=100,  blank=True, null=True)
+    tsuushoumei_kana = models.CharField(
+        "通称名フリガナ", max_length=50,  blank=True, null=True)
+    eijishimei = models.CharField(
+        "英字氏名", max_length=100, blank=True, null=True)
 
     def age(self):
         today = date.today()
         age = today.year - self.seinengappi.year
-        # 今年の誕生日を迎えていなければ、ageを1つ減らす
         if (today.month, today.day) < (self.seinengappi.month, self.seinengappi.day):
             age -= 1
         return age
 
-    class Meta:
-        verbose_name = "研究者データ"
-        verbose_name_plural = "研究者データ"
+    def __str__(self):
+        return self.eradcode
 
 
 class Application(models.Model):
+    class Meta:
+        verbose_name = verbose_name_plural = "e-Rad応募データ"
     kakushu_no = models.CharField("各種No", max_length=20)
     kadai_id = models.CharField("課題ID", max_length=20)
     oubo_saitaku_bangou = models.CharField("応募／採択番号", max_length=20)
@@ -67,7 +77,11 @@ class Application(models.Model):
                      ("5", "採択"), ("6", "不受理"), ("7", "取下げ"), ("8", "不採択（足切り）"), ("9", "不採択"))
     status = models.CharField("ステータス", max_length=1, choices=STATUS_CHOICE)
     eradcode = models.CharField("研究者番号", max_length=8)
+    shimeikanji_sei = models.CharField("氏名漢字（姓）", max_length=50)
+    shimeikanji_mei = models.CharField("氏名漢字（名）", max_length=50)
+    kenkyuukikanmei = models.CharField("研究機関名", max_length=50)
+    bukyokumei = models.CharField("部局名", max_length=50, blank=True, null=True)
+    yakushoku = models.CharField("役職", max_length=50, blank=True, null=True)
 
-    class Meta:
-        verbose_name = "応募データ"
-        verbose_name_plural = "応募データ"
+    def __str__(self):
+        return self.kakushu_no

@@ -21,14 +21,19 @@
                 <th width=20%>英字氏名</th>
                 <th width=10%>部局名</th>
                 <th width=10%>職位</th>
-                <th width=10%></th>
             </tr>
         </thead>
         <tbody>
             {% for object in object_list %}
             <tr>
-                <td>{{ object.eradcode }}</td>
-                <td>{{ object.kenkyuushashimei_sei }} {{ object.kenkyuushashimei_mei }}<br>
+                <td><a href="{% url 'erad:detail' object.pk %}">{{ object.eradcode }}</a></td>
+                <td>{{ object.kenkyuushashimei_sei }} {{ object.kenkyuushashimei_mei }}
+                    {% if object.bukyokutaininbi %}
+                    <span class="badge badge-warning">転出</span>
+                    {% else %}
+                    <span class="badge badge-info">機関所属</span>
+                    {% endif %}
+                    <br>
                     <span class="small text-muted">{{ object.furigana_sei }} {{ object.furigana_mei }}</span></td>
                 <td>{{ object.tsuushoumei_sei|default:"" }} {{ object.tsuushoumei_mei|default:"" }}<br>
                     <span class="small text-muted">{{ object.tsuushoumeifurigana_sei|default:"" }}
@@ -36,11 +41,6 @@
                 <td>{{ object.eiji_sei|default:"" }} {{ object.eiji_mei|default:"" }}</td>
                 <td>{{ object.bukyokumei }}</td>
                 <td>{{ object.shokumei }}</td>
-                <td>
-                    <a class="btn btn-outline-info btn-sm" href="{% url 'erad:detail' object.pk %}">
-                        詳細
-                    </a>
-                </td>
             </tr>
             {% endfor %}
         </tbody>

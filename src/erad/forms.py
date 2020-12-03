@@ -5,14 +5,16 @@ from django.urls import reverse
 
 
 class ResearcherSearchForm(forms.Form):
-    q = forms.CharField(label="e-Rad研究者データから検索", required=False)
+    shimei = forms.CharField(label="氏名", required=False)
+    shozoku = forms.CharField(label="所属", required=False)
 
     def __init__(self, *args, **kwargs):
         super(ResearcherSearchForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Row(
-                Column('q', css_class='form-group col-md-12 mb-0'),
+                Column('shimei', css_class='form-group col-md-6 mb-0'),
+                Column('shozoku', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
         )

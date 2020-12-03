@@ -13,7 +13,7 @@ urlpatterns = [
     path("nayose/", include("nayose.urls")),
     path("grant/", include("grant.urls")),
     path("accounts/", include("allauth.urls")),
-    path("admin/", admin.site.urls),
+    path("data_management/", admin.site.urls),
 ]
 
 if settings.DEBUG:

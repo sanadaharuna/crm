@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+  mysql:
+    build: ./mysql
+    container_name: mysql_crm
+    ports:
+      - 3307:3306
+    volumes:
+      - mysql_data:/var/lib/mysql/
+    env_file:
+      - ./mysql.env
+    restart: always
+
   django:
     build: ./src
     container_name: crm_django
@@ -14,10 +25,9 @@ services:
     restart: always
 
   nginx:
-    image: nginx:1.19.2-alpine
+    image: nginx:1.19.5-alpine
     container_name: crm_nginx
     volumes:
-      # - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./nginx/log:/var/log/nginx
       - ./src/static:/static
@@ -25,9 +35,8 @@ services:
       - django
     restart: always
 
-# volumes:
-#   django.db.volume:
-#     driver: local
+volumes:
+  mysql_data:
 
 networks:
   default:

@@ -9,8 +9,14 @@
     <div class="col-md-12">
         <div class="card my-3">
             <div class="card-header">
-                <h3 class="card-title h5">基本情報</h3>
-                <p>e-Rad部局退任日に日付が入っている場合は、退任時点のデータです</p>
+                <h3 class="card-title h5">
+                    基本情報
+                    {% if object.bukyokutaininbi %}
+                    <span class="badge badge-warning">転出</span>
+                    {% else %}
+                    <span class="badge badge-info">機関所属</span>
+                    {% endif %}
+                </h3>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -25,6 +31,9 @@
                                 {{ object.tsuushoumei_mei|default:"" }} <span
                                     class="small text-muted">{{ object.tsuushoumeifurigana_sei|default:"" }}
                                     {{ object.tsuushoumeifurigana_mei|default:"" }}</span></dd>
+                            <dt class="col-md-3">英字氏名</dt>
+                            <dd class="col-md-9">{{ object.eiji_sei|default:"登録なし" }}
+                                {{ object.eiji_mei|default:"" }}</dd>
                             <dt class="col-md-3">生年月日</dt>
                             <dd class="col-md-9">{{ object.seinengappi }}</dd>
                             <dt class="col-md-3">今日時点の年齢</dt>
@@ -35,15 +44,16 @@
                             <dd class="col-md-9">{{ object.bukyokumei }}</dd>
                             <dt class="col-md-3">職名</dt>
                             <dd class="col-md-9">{{ object.shokumei }}</dd>
-                            <dt class="col-md-3">e-Rad研究者番号</dt>
+                            <dt class="col-md-3">研究者番号</dt>
                             <dd class="col-md-9">{{ object.pk }}</dd>
-                            <dt class="col-md-3">名寄せID</dt>
-                            <dd class="col-md-9"><a
-                                    href="{% url 'admin:nayose_nayose_change' nayose.pk %}">{{ nayose.pk|default:"登録なし" }}</a></dd>
-                            <dt class="col-md-3">職員番号</dt>
+                            <dt class="col-md-3">常勤職員番号</dt>
                             <dd class="col-md-9">{{ nayose.shokuincode|default:"登録なし" }}</dd>
                             <dt class="col-md-3">非常勤職員番号</dt>
                             <dd class="col-md-9">{{ nayose.hijoukincode|default:"登録なし" }}</a></dd>
+                            <dt class="col-md-3">名寄せID</dt>
+                            <dd class="col-md-9"><a
+                                    href="{% url 'admin:nayose_nayose_change' nayose.pk %}">{{ nayose.pk|default:"登録なし" }}</a>
+                            </dd>
                         </dl>
                     </div>
                     <div class="col-md-6">
@@ -296,8 +306,7 @@
             <td>{{ grant_member.project.kadaimei }}</td>
             <td>{{ grant_member.project.get_kubun_display }}</td>
             <td>{{ grant_member.project.get_saihi_display }}</td>
-            <td> <a class="btn btn-outline-info btn-sm"
-                    href="{% url 'grant:detail' grant_member.project.pk %}">
+            <td> <a class="btn btn-outline-info btn-sm" href="{% url 'grant:detail' grant_member.project.pk %}">
                     詳細
                 </a>
             </td>
