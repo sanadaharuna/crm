@@ -30,6 +30,7 @@ services:
     volumes:
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./nginx/log:/var/log/nginx
+      - ./nginx/certs:/etc/nginx/certs
       - ./src/static:/static
     depends_on:
       - django
