@@ -3,7 +3,7 @@ version: "3"
 services:
   mysql:
     build: ./mysql
-    container_name: mysql_crm
+    container_name: crm_mysql
     ports:
       - 3307:3306
     volumes:
