@@ -82,7 +82,7 @@ DATABASES = {
         "NAME": "crm",
         "USER": "root",
         "PASSWORD": "grKE4UWksXck",
-        "HOST": "mysql_crm",
+        "HOST": "crm_mysql",
         "PORT": "3306",
         "OPTIONS": {"charset": "utf8mb4"},
     }
