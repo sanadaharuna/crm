@@ -3,8 +3,8 @@ from django.db.models import Count, Q
 from django.views.generic import DetailView, ListView
 from grant.models import Member
 from nayose.models import Nayose
-from policy.models import Participant
-from seminar.models import Attendee, Lecturer
+from attribute.models import Eligible
+from event.models import Attendee
 from support.models import CompetitiveFund, Kakenhi, Matching
 
 from .forms import ResearcherSearchForm
@@ -62,8 +62,6 @@ class ResearcherDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get("pk")
         context["nayose"] = Nayose.objects.get(eradcode=pk)
-        context["lecturer_list"] = Lecturer.objects.select_related().filter(
-            eradcode=pk)
         context["attendee_list"] = Attendee.objects.select_related().filter(
             eradcode=pk)
         context["support_kakenhi_list"] = Kakenhi.objects.filter(
@@ -72,7 +70,7 @@ class ResearcherDetailView(LoginRequiredMixin, DetailView):
             eradcode=pk).order_by("uketsukebi").reverse()
         context["support_matching_list"] = Matching.objects.filter(
             eradcode=pk).order_by("uketsukebi").reverse()
-        context["participant_list"] = Participant.objects.select_related().filter(
+        context["attribute_list"] = Eligible.objects.select_related().filter(
             eradcode=pk).order_by("nendo").reverse()
         context["grant_member_list"] = Member.objects.select_related().filter(
             eradcode=pk).order_by("project__nendo").reverse()

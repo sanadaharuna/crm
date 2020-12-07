@@ -4,7 +4,7 @@ from crm.lib.models import Person
 
 class Project(models.Model):
     class Meta:
-        verbose_name = verbose_name_plural = "U-goグラント課題"
+        verbose_name = verbose_name_plural = "課題名"
     nendo = models.IntegerField("年度")
     kadaimei = models.CharField("課題名", max_length=200)
     KUBUN_CHOICES = (("1", "新規"), ("2", "継続"))
@@ -21,7 +21,7 @@ class Project(models.Model):
 
 class Member(Person):
     class Meta:
-        verbose_name = verbose_name_plural = "U-goグラント申請者"
+        verbose_name = verbose_name_plural = "申請者"
     project = models.ForeignKey(Project, on_delete=models.PROTECT)
     shokumei = models.CharField("職名", max_length=50)
     nenrei = models.IntegerField("年齢")

@@ -11,25 +11,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(
 SECRET_KEY = "=ctceo4()$%8nj$a4g!ag6*6z-o8lkneoih$xp(bxv0rg=pb1&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    "nayose",
-    "support",
-    "erad",
-    "seminar",
-    "policy",
-    "grant",
-    "accounts",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
+    "nayose.apps.NayoseConfig",
+    "support.apps.SupportConfig",
+    "erad.apps.EradConfig",
+    "event.apps.EventConfig",
+    "attribute.apps.AttributeConfig",
+    "grant.apps.GrantConfig",
     "crispy_forms",
     "import_export",
+    "axes",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -48,6 +45,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = "crm.urls"
@@ -55,10 +53,7 @@ ROOT_URLCONF = "crm.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            os.path.join(BASE_DIR, "templates"),
-            os.path.join(BASE_DIR, "templates", "allauth"),
-        ],
+        "DIRS": [os.path.join(BASE_DIR, "templates"), ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -113,23 +108,16 @@ NUMBER_GROUPING = 3
 
 STATIC_URL = "/static/"
 STATIC_ROOT = "/code/static"
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 # crispy-forms
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-# django-allauth
-AUTHENTICATION_BACKENDS = (
-    "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
-)
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = "none"
-ACCOUNT_EMAIL_REQUIRED = True
-
-SITE_ID = 1
-
+# login - logout
 LOGIN_REDIRECT_URL = "erad:front"
-ACCOUNT_LOGOUT_REDIRECT_URL = "/crm/accounts/login/"
+LOGOUT_REDIRECT_URL = "/accounts/login/"
+SITE_ID = 1
+AUTHENTICATION_BACKENDS = (
+    'axes.backends.AxesBackend',
+    "django.contrib.auth.backends.ModelBackend",
+)

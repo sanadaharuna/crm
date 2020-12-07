@@ -21,7 +21,7 @@ class KakenhiAdmin(ImportExportModelAdmin):
 
 
 #
-# Matching
+# Competitivefund
 #
 
 class CompetitivefundResource(resources.ModelResource):
