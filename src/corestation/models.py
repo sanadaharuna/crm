@@ -19,7 +19,7 @@ class Member(Person):
         verbose_name = verbose_name_plural = "構成員"
 
     station = models.ForeignKey(Station, on_delete=models.PROTECT)
-    specialized_field = models.CharField("専門分野", max_length=200)
+    specialized_field = models.CharField("専門分野", max_length=200, blank=True, null=True)
     REPRESENTATIVE_CHOICES = (("0", ""), ("1", "事業代表者"),)
     is_representative = models.CharField("事業代表者", choices=REPRESENTATIVE_CHOICES, max_length=1)
 
