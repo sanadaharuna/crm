@@ -9,7 +9,7 @@ class Attribute(models.Model):
     zokusei = models.CharField("属性", max_length=50)
 
     def __str__(self):
-        return self.attribute
+        return self.zokusei
 
 
 class Eligible(Person):

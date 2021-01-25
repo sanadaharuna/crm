@@ -234,20 +234,14 @@
             <th>年度</th>
             <th>属性</th>
             <th>備考</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-        {% for participant in participant_list %}
+        {% for eligible in eligible_list %}
         <tr>
-            <td>{{ participant.nendo }}</td>
-            <td>{{ participant.policy.shisakumei }}</td>
-            <td>{{ participant.bikou }}</td>
-            <td> <a class="btn btn-outline-info btn-sm"
-                    href="{% url 'admin:policy_participant_change' participant.pk %}">
-                    編集
-                </a>
-            </td>
+            <td>{{ eligible.nendo }}</td>
+            <td>{{ eligible.attribute.zokusei }}</td>
+            <td>{{ eligible.bikou }}</td>
         </tr>
         {% endfor %}
     </tbody>

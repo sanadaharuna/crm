@@ -70,7 +70,7 @@ class ResearcherDetailView(LoginRequiredMixin, DetailView):
             eradcode=pk).order_by("uketsukebi").reverse()
         context["support_matching_list"] = Matching.objects.filter(
             eradcode=pk).order_by("uketsukebi").reverse()
-        context["attribute_list"] = Eligible.objects.select_related().filter(
+        context["eligible_list"] = Eligible.objects.select_related().filter(
             eradcode=pk).order_by("nendo").reverse()
         context["grant_member_list"] = Member.objects.select_related().filter(
             eradcode=pk).order_by("project__nendo").reverse()

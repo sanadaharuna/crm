@@ -26,5 +26,13 @@ class EligibleResource(resources.ModelResource):
 @admin.register(Eligible)
 class EligibleAdmin(ImportExportModelAdmin):
     resource_class = EligibleResource
-    list_display = ("nendo", "eradcode",
+    list_select_related = ("attribute", )
+    list_display = ("nendo", "format_attribute_zokusei", "eradcode",
                     "shimei", "shozoku", "bikou")
+
+    def format_attribute_zokusei(self, obj):
+        if obj.attribute is not None:
+            return obj.attribute.zokusei
+
+    format_attribute_zokusei.short_description = "属性"
+    format_attribute_zokusei.admin_order_field = "attribute__zokusei"
