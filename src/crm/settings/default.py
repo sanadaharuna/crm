@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "attribute.apps.AttributeConfig",
     "grant.apps.GrantConfig",
     "corestation.apps.CorestationConfig",
+    "work.apps.WorkConfig",
     "crispy_forms",
     "import_export",
     "axes",
