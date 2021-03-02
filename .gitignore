@@ -4,7 +4,7 @@ access.log
 error.log
 uwsgi.log
 __pycache__
-# migrations
+migrations
 local.py
 crm.sqlite3
 mysql.env
