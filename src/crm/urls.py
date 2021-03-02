@@ -10,6 +10,7 @@ admin.site.site_header = "Galette CRM"
 urlpatterns = [
     path("", RedirectView.as_view(permanent=False, url="erad/")),
     path("erad/", include("erad.urls")),
+    path("work/", include("work.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("data_management/", admin.site.urls),
 ]

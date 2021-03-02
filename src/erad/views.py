@@ -6,6 +6,7 @@ from nayose.models import Nayose
 from attribute.models import Eligible
 from event.models import Attendee
 from support.models import CompetitiveFund, Kakenhi, Matching
+from work.models import Keyword, Work
 
 from .forms import ResearcherSearchForm
 from .models import Application, Researcher
@@ -78,4 +79,9 @@ class ResearcherDetailView(LoginRequiredMixin, DetailView):
             eradcode=pk).filter(seido_code="S000003").order_by("nendo").reverse()
         context["erad_list"] = Application.objects.filter(
             eradcode=pk).exclude(seido_code="S000003").order_by("nendo").reverse()
+        context["work_list"] = Work.objects.filter(
+            eradcode=pk).order_by("-startfiscalyear")
+        context["keyword_list"] = Keyword.objects.select_related().filter(
+            work__eradcode=pk).annotate(count=Count("keyword")).order_by("-count")
+
         return context

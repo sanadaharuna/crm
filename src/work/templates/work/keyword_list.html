@@ -1,0 +1,44 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load humanize %}
+{% block header %}キーワード検索 結果{% endblock header %}
+
+
+{% block contents %}
+
+{% if object_list %}
+<div class="alert alert-primary my-3">
+    検索結果：<span class="h3">{{ paginator.count | intcomma }}</span> 件（検索語：{{ q }}）
+</div>
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>キーワード</th>
+                <th>該当研究者数</th>
+                <th>のべ使用回数</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object.keyword }}</td>
+                <td>{{ object.researcher_count }}</a></td>
+                <td>{{ object.cumcount }}</td>
+                <td>
+                    <a href="{% url 'work:detail' object.pk %}" class="btn btn-outline-primary btn-sm" role="button"
+                        data-bs-toggle="button">詳細</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="my-5">見つかりませんでした。</p>
+{% endif %}
+
+
+
+{% endblock contents %}

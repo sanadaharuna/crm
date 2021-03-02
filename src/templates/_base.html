@@ -32,12 +32,14 @@
 </head>
 
 <body>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" href="{% url 'erad:front' %}">Galette CRM</h5>
+    <div
+        class="sticky-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" href="{% url 'erad:front' %}">Galette
+                CRM</h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="{% url 'erad:front' %}">研究者検索</a>
+            <a class="p-2 text-dark" href="{% url 'work:front' %}">研究キーワード検索</a>
             <a class="p-2 text-dark" href="{% url 'admin:index' %}">データ管理</a>
-            <a class="p-2 text-dark" href="#">マッチング支援ツール（準備中）</a>
         </nav>
         <a class="btn btn-outline-info btn-sm" href="{% url 'logout' %}">ログアウト（{{ user.get_username }}）</a>
     </div>
@@ -63,7 +65,7 @@
             </main>
         </div>
     </div>
-    <footer class="footer">
+    <footer class="footer sticky-bottom">
         <div class="container-fluid p-5 bg-light">
             <div class="row">
                 <div class="col-md-12">

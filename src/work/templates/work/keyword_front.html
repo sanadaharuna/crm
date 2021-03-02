@@ -1,0 +1,57 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block header %}研究キーワード検索{% endblock header %}
+
+{% block contents %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                {% crispy search_form search_form.helper %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row my-5">
+    <div class="col-md-12">
+        <h3>使用回数の多いキーワードから探す</h3>
+        {% if object_list %}
+        <div class="table-responsive">
+            <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>キーワード</th>
+                        <th>
+                            <div class="text-center">使用研究者数</div>
+                        </th>
+                        <th>
+                            <div class="text-center">のべ使用回数</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in object_list %}
+                    <tr>
+                        <td><a href="{% url 'work:detail' object.pk %}">{{ object.keyword }}</a></td>
+                        <td>
+                            <div class="text-center">{{ object.researcher_count }}</div>
+                        </td>
+                        <td>
+                            <div class="text-center">{{ object.cumcount }}</div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+        <p class="my-5">見つかりませんでした。</p>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock contents %}

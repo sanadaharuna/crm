@@ -1,37 +1,32 @@
 from django.db import models
 
 
-class Member(models.Model):
-    class Meta:
-        verbose_name = verbose_name_plural = "参画研究者"
-    eradcode = models.CharField("研究者番号", max_length=8)
-    ROLE_CHOICES = (("1", "代表"), ("2", "分担"), ("3", "筆頭著者"), ("4", "責任著者"))
-    role = models.CharField("役割", max_length=1, choices=ROLE_CHOICES)
-
-    def __str__(self):
-        return self.eradcode
-
-
 class Keyword(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "キーワード"
+    # keyword_id = models.IntegerField("キーワードID", primary_key=True)
     keyword = models.CharField("キーワード", max_length=255)
+    researcher_count = models.IntegerField("使用研究者数")
+    cumcount = models.IntegerField("のべ使用回数")
 
     def __str__(self):
-        return self.keyword_id
+        return self.keyword
 
 
 class Work(models.Model):
     class Meta:
-        verbose_name = verbose_name_plural = "研究業績"
-    SOURCE_CHOICES = (("1", "KAKEN"), ("2", "JSTDB"), ("3", "WoS"))
-    source = models.CharField("取得元", max_length=1, choices=SOURCE_CHOICES)
-    pid = models.CharField("永続的識別子", max_length=255, primary_key=True)
-    category = models.CharField("種別", max_length=255)
-    title = models.CharField("タイトル", max_length=255)
-    year = models.IntegerField("開始年度／公表年")
-    members = models.ManyToManyField(Member)
+        verbose_name = verbose_name_plural = "研究課題"
+    awardnumber = models.CharField("課題番号", max_length=255)
+    title = models.CharField("課題名", max_length=255)
+    startfiscalyear = models.IntegerField("研究開始年度")
+    role = models.CharField("役割", max_length=255)
+    category_name = models.CharField("研究種目", max_length=255)
+    eradcode = models.CharField("研究者番号", max_length=8)
+    fullname = models.CharField("氏名", max_length=255)
+    institution = models.CharField("部局名", max_length=255)
+    department = models.CharField("部局名", max_length=255)
+    jobtitle = models.CharField("職名", max_length=255)
     keywords = models.ManyToManyField(Keyword)
 
     def __str__(self):
-        return self.unique_id
+        return self.eradcode

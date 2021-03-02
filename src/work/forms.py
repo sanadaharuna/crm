@@ -5,14 +5,14 @@ from django.urls import reverse
 
 
 class KeywordSearchForm(forms.Form):
-    keyword = forms.CharField(label="キーワード", required=False)
+    q = forms.CharField(label="キーワード", required=False)
 
     def __init__(self, *args, **kwargs):
         super(KeywordSearchForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Row(
-                Column('keyword', css_class='form-group col-md-6 mb-0'),
+                Column('q', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
         )

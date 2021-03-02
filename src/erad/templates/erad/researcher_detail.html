@@ -25,12 +25,14 @@
                             <dt class="col-md-3">氏名</dt>
                             <dd class="col-md-9">{{ object.kenkyuushashimei_sei }} {{ object.kenkyuushashimei_mei }}
                                 <span class="small text-muted">{{ object.furigana_sei }}
-                                    {{ object.furigana_mei }}</span></dd>
+                                    {{ object.furigana_mei }}</span>
+                            </dd>
                             <dt class="col-md-3">通称名</dt>
                             <dd class="col-md-9">{{ object.tsuushoumei_sei|default:"登録なし" }}
-                                {{ object.tsuushoumei_mei|default:"" }} <span
-                                    class="small text-muted">{{ object.tsuushoumeifurigana_sei|default:"" }}
-                                    {{ object.tsuushoumeifurigana_mei|default:"" }}</span></dd>
+                                {{ object.tsuushoumei_mei|default:"" }}
+                                <span class="small text-muted">{{ object.tsuushoumeifurigana_sei|default:"" }}
+                                    {{ object.tsuushoumeifurigana_mei|default:"" }}</span>
+                            </dd>
                             <dt class="col-md-3">英字氏名</dt>
                             <dd class="col-md-9">{{ object.eiji_sei|default:"登録なし" }}
                                 {{ object.eiji_mei|default:"" }}</dd>
@@ -51,8 +53,7 @@
                             <dt class="col-md-3">非常勤職員番号</dt>
                             <dd class="col-md-9">{{ nayose.hijoukincode|default:"登録なし" }}</a></dd>
                             <dt class="col-md-3">名寄せID</dt>
-                            <dd class="col-md-9"><a
-                                    href="{% url 'admin:nayose_nayose_change' nayose.pk %}">{{ nayose.pk|default:"登録なし" }}</a>
+                            <dd class="col-md-9">{{ nayose.pk|default:"登録なし" }}</a>
                             </dd>
                         </dl>
                     </div>
@@ -63,7 +64,7 @@
                             <dt class="col-md-4">学位取得年月日</dt>
                             <dd class="col-md-8">{{ object.gakuishutokunengappi|default:"登録なし" }}</dd>
                             <dt class="col-md-4">メールアドレス1</dt>
-                            <dd class="col-md-8">{{ object.mailaddress1|default:"登録なし"  }}</dd>
+                            <dd class="col-md-8">{{ object.mailaddress1|default:"登録なし" }}</dd>
                             <dt class="col-md-4">メールアドレス2</dt>
                             <dd class="col-md-8">{{ object.mailaddress2|default:"登録なし" }}</dd>
                             <dt class="col-md-4">科研費応募資格</dt>
@@ -80,6 +81,46 @@
         </div>
     </div>
 </div>
+<hr>
+<h3 class="h5">研究キーワード</h3>
+{% if keyword_list %}
+{% for keyword in keyword_list %}
+<a class="btn btn-outline-secondary btn-sm my-1" href="{% url 'work:detail' keyword.id %}" role="button">
+    {{ keyword.keyword }}
+    <span class="badge badge-pill badge-light">{{ keyword.count }}</span>
+</a>
+{% endfor %}
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
+<hr>
+<h3 class="h5">科研費採択課題</h3>
+{% if work_list %}
+<table class="table table-striped table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th>課題番号</th>
+            <th>課題名</th>
+            <th width=20%>研究種目</th>
+            <th>開始年度</th>
+            <th>役割</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for work in work_list %}
+        <tr>
+            <td>{{ work.awardnumber }}</td>
+            <td>{{ work.title }}</td>
+            <td>{{ work.category_name }}</td>
+            <td>{{ work.startfiscalyear }}</td>
+            <td>{{ work.role }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="my-5">該当するデータがありません</p>
+{% endif %}
 <hr>
 <h3 class="h5">イベント、セミナー</h3>
 {% if attendee_list %}
