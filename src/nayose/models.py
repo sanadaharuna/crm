@@ -17,6 +17,11 @@ class Nayose(models.Model):
     kanjishimei_mei = models.CharField("漢字氏名（名）", max_length=30)
     kanashimei_sei = models.CharField("カナ氏名（姓）", max_length=30)
     kanashimei_mei = models.CharField("カナ氏名（名）", max_length=30)
+    eijishimei_sei = models.CharField(
+        "英字氏名（姓）", max_length=30, blank=True, null=True)
+    eijishimei_mei = models.CharField(
+        "英字氏名（名）", max_length=30, blank=True, null=True)
+    betsumei = models.CharField("別名", max_length=30, blank=True, null=True)
     seinengappi = models.DateField("生年月日")
     SEX_CHOICES = (("0", ""), ("1", "男性"), ("2", "女性"), ("9", "その他"))
     seibetsu = models.CharField("性別", choices=SEX_CHOICES, max_length=1)
@@ -27,7 +32,7 @@ class Nayose(models.Model):
         today = date.today()
         age = today.year - self.date_of_birth.year
         # 今年の誕生日を迎えていなければ、ageを1つ減らす
-        if (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day):
+        if (today.month, today.day) < (self.seinengappi.month, self.seinengappi.day):
             age -= 1
         return age
 
