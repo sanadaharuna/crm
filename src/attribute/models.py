@@ -18,7 +18,7 @@ class Eligible(Person):
 
     attribute = models.ForeignKey(Attribute, on_delete=models.PROTECT)
     nendo = models.IntegerField("実施年度")
-    bikou = models.CharField("備考", max_length=200)
+    bikou = models.CharField("備考", max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.eradcode
