@@ -23,7 +23,6 @@ class Member(Person):
     class Meta:
         verbose_name = verbose_name_plural = "申請者"
     project = models.ForeignKey(Project, on_delete=models.PROTECT)
-    shokumei = models.CharField("職名", max_length=50)
     nenrei = models.IntegerField("年齢")
     SEX_CHOICES = (("0", ""), ("1", "男性"), ("2", "女性"), ("9", "その他"))
     seibetsu = models.CharField("性別", choices=SEX_CHOICES, max_length=1)
