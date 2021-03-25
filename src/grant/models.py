@@ -29,6 +29,9 @@ class Member(Person):
     seibetsu = models.CharField("性別", choices=SEX_CHOICES, max_length=1)
     ROLE_CHOICES = (("1", "代表"), ("2", "分担"), ("9", "その他"))
     role = models.CharField("役割", max_length=1, choices=ROLE_CHOICES)
+    AFF_CHOICES = (("1", "新潟大学"), ("9", "その他"))
+    affiliation = models.CharField(
+        "所属機関", max_length=1, choices=AFF_CHOICES, blank=True, null=True)
 
     def __str__(self):
         return self.eradcode

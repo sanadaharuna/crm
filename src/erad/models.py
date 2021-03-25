@@ -74,7 +74,8 @@ class Application(models.Model):
     kaishi_nendo = models.IntegerField("研究期間開始年度")
     shuuryou_nendo = models.IntegerField("研究期間終了年度")
     STATUS_CHOICE = (("1", "応募中"), ("2", "応募済"), ("3", "審査中"), ("4", "審査済"),
-                     ("5", "採択"), ("6", "不受理"), ("7", "取下げ"), ("8", "不採択（足切り）"), ("9", "不採択"))
+                     ("5", "採択"), ("6", "不受理"), ("7", "取下げ"),
+                     ("8", "不採択（足切り）"), ("9", "不採択"))
     status = models.CharField("ステータス", max_length=1, choices=STATUS_CHOICE)
     eradcode = models.CharField("研究者番号", max_length=8)
     shimeikanji_sei = models.CharField("氏名漢字（姓）", max_length=50)

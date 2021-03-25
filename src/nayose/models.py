@@ -1,4 +1,3 @@
-from datetime import date
 from django.db import models
 
 
@@ -27,14 +26,6 @@ class Nayose(models.Model):
     seibetsu = models.CharField("性別", choices=SEX_CHOICES, max_length=1)
     orcid = models.CharField("ORCID", max_length=19,
                              blank=True, null=True, unique=True)
-
-    def age(self):
-        today = date.today()
-        age = today.year - self.date_of_birth.year
-        # 今年の誕生日を迎えていなければ、ageを1つ減らす
-        if (today.month, today.day) < (self.seinengappi.month, self.seinengappi.day):
-            age -= 1
-        return age
 
     def __str__(self):
         return self.pk
